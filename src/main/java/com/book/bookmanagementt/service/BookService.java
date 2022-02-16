@@ -14,13 +14,18 @@ public class BookService {
     @Autowired
     public Bookrepository bookrepository;
 
+
     public BookService(Bookrepository bookrepository) {
         this.bookrepository = bookrepository;
     }
 
-    public List<Book> getAllBooks() {
+    public List<Book> loadAllBooks() {
+
         return bookrepository.findAll();
     }
+    public Book loadBookById(int id) {
 
-
+        return bookrepository.findById(id).get();
+    }
 }
+

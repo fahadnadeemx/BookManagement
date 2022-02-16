@@ -15,7 +15,7 @@ public class Bookrepository {
     public List<Book> findAll() {
         throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
     }
-    public Optional<Book> findById(long id) {
+    public Optional<Book> findById(int id) {
         throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
     }
 

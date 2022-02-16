@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ public class BookServiceTest {
         Book book2 = new Book(2, "second", "Nadeem", 5000);
         Mockito.when(bookrepository.findAll()).thenReturn(Arrays.asList(book1, book2));
         //Act
-        List<Book> bookList = bookService.getAllBooks();
+        List<Book> bookList = bookService.loadAllBooks();
         //Assert
         Assert.assertEquals(2, bookList.size());
     }
@@ -48,11 +49,12 @@ public class BookServiceTest {
     public void test_getBooksById_found() {
         //Arrange
         Book book1 = new Book(1, "first", "Fahad", 1000);
-        Mockito.when(bookrepository.findbyId(1)).thenReturn(Optional.of(book1));
+        Mockito.when(bookrepository.findById(1)).thenReturn(Optional.of(book1));
 
-        List<Book> bookList = bookService.findById(1);
+        List<Book> bookList = Collections.singletonList(bookService.loadBookById(1));
         Assert.assertEquals(1, bookList.size());
 //        assertThat(employeeService.getEmployeeById(1))
 //                .isSameAs(employee);
     }
+
 }
