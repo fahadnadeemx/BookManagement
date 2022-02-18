@@ -31,6 +31,10 @@ public class BookService {
 
         return bookrepository.save(book);
     }
+    public Book updateBook(Book book) {
+
+        return bookrepository.save(book);
+    }
 //    public Book save(Book book) {
 //        Book createBookRequest = new Book();
 //

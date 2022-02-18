@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -59,5 +61,23 @@ public class CategoryServiceTest {
         List<Category> categoryList = Collections.singletonList(categoryService.loadCategoryById(1));
         assertEquals(1, categoryList.size());
 
+    }
+    @Test
+    public void SaveCategory() {
+
+        Category category1 = new Category(1, "first");
+        when(categoryrepository.save(any(Category.class))).thenReturn(new Category());
+
+        List<Category> categoryList = Collections.singletonList(categoryService.saveCategory(category1));
+        assertEquals(1, categoryList.size());
+    }
+    @Test
+    public void test_updatecategory() {
+        Category replacement = spy(new Category(1, "first"));
+        Category replaced = new Category(2, "saved");
+        when(categoryrepository.save(any(Category.class)))
+                .thenReturn(replaced);
+        List<Category> categoryList = Collections.singletonList(categoryService.updateCategory(replacement));
+        assertEquals(1, categoryList.size());
     }
 }

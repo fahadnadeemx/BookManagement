@@ -1,5 +1,6 @@
 package com.book.bookmanagementt.service;
 
+import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
 import com.book.bookmanagementt.repository.Categoryrepository;
 
@@ -17,8 +18,9 @@ public class CategoryService {
         return categoryRepository.findById(id).get();
     }
 
-    public Category saveCategory(Category category) {categoryRepository.save(category);
-        return loadCategoryById(category.getId());
+    public Category saveCategory(Category category) {
+
+        return categoryRepository.save(category);
     }
 
     public void deleteCategory(int id) {categoryRepository.deleteById(id);

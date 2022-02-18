@@ -18,8 +18,7 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -37,8 +36,7 @@ public class BookServiceTest {
     }
 
 
-
-//    public void test_getAllBooks() {
+    //    public void test_getAllBooks() {
 //        //Arrange
 //        Book book1 = new Book(1, "first", "Fahad", 1000);
 //        Book book2 = new Book(2, "second", "Nadeem", 5000);
@@ -52,7 +50,7 @@ public class BookServiceTest {
     public void test_getAllBooks() {
         List<Book> list = new ArrayList<Book>();
         Book book1 = new Book(1, "first", "Fahad", 1000);
-         Book book2 = new Book(2, "second", "Nadeem", 5000);
+        Book book2 = new Book(2, "second", "Nadeem", 5000);
         list.add(book1);
         list.add(book2);
         when(bookrepository.findAll()).thenReturn(list);
@@ -63,6 +61,7 @@ public class BookServiceTest {
 
 
     }
+
     @Test
     public void test_getBooksById_found() {
         //Arrange
@@ -74,6 +73,7 @@ public class BookServiceTest {
 //        assertThat(employeeService.getEmployeeById(1))
 //                .isSameAs(employee);
     }
+
     @Test
     public void SavedBook() {
 //        Book saved = new Book(2, "second", "Nadeem", 5000);
@@ -104,11 +104,25 @@ public class BookServiceTest {
 //        Book created = bookService.saveBook(createBookRequest);
 //        Assert.assertThat(bookService.save(createBookRequest).equals(created);
 
-    Book book1 = new Book(1, "first", "Fahad", 1000);
-    when(bookrepository.save(any(Book.class))).thenReturn(new Book());
+        Book book1 = new Book(1, "first", "Fahad", 1000);
+        when(bookrepository.save(any(Book.class))).thenReturn(new Book());
 
-    List<Book> bookList = Collections.singletonList(bookService.saveBook(book1));
-    assertEquals(1, bookList.size());
+        List<Book> bookList = Collections.singletonList(bookService.saveBook(book1));
+        assertEquals(1, bookList.size());
     }
 
+    @Test
+    public void test_updatebook() {
+        Book replacement = spy(new Book(1, "first", "Fahad", 1000));
+        Book replaced = new Book(2, "saved", "saved", 5000);
+        when(bookrepository.save(any(Book.class)))
+                .thenReturn(replaced);
+        List<Book> bookList = Collections.singletonList(bookService.updateBook(replacement));
+        assertEquals(1, bookList.size());
+//
+//        InOrder inOrder = inOrder(replacement, bookrepository);
+//        inOrder.verify(replacement).setId(2);
+//        inOrder.verify(bookrepository).save(replacement);
+
+    }
 }
