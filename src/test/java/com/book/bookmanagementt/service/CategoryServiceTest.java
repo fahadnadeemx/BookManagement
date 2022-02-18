@@ -14,7 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -47,7 +49,15 @@ public class CategoryServiceTest {
 
         assertEquals(2, CategoryList.size());
 
+    }
+    @Test
+    public void test_getCategoryById_found() {
+        //Arrange
+        Category category1 = new Category(1, "first");
+        when(categoryrepository.findById(1)).thenReturn(Optional.of(category1));
+
+        List<Category> categoryList = Collections.singletonList(categoryService.loadCategoryById(1));
+        assertEquals(1, categoryList.size());
 
     }
-
 }
