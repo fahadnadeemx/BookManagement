@@ -27,5 +27,20 @@ public class BookService {
 
         return bookrepository.findById(id).get();
     }
+    public Book saveBook(Book book) {
+
+        return bookrepository.save(book);
+    }
+//    public Book save(Book book) {
+//        Book createBookRequest = new Book();
+//
+//        createBookRequest.getId(book.setId());
+//        createBookRequest.getBookname(book.setBookname());
+//        createBookRequest.getAuthor(book.setAuthor());
+//        createBookRequest.getPrice(book.setPrice());
+//        bookrepository.save(createBookRequest);
+//        return createBookRequest;
+//    }
+
 }
 
