@@ -110,4 +110,5 @@ public class BookServiceTest {
     List<Book> bookList = Collections.singletonList(bookService.saveBook(book1));
     assertEquals(1, bookList.size());
     }
+
 }
