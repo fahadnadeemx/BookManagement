@@ -35,6 +35,10 @@ public class BookService {
 
         return bookrepository.save(book);
     }
+    public void deleteBook(int id) {
+
+        bookrepository.findById(id).get();
+    }
 //    public Book save(Book book) {
 //        Book createBookRequest = new Book();
 //
