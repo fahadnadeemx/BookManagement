@@ -1,4 +1,4 @@
-package com.example.recipe.recipeapp.controller;
+package com.book.bookmanagementt.controller;
 
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
@@ -20,9 +20,9 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-    /* Injecting services of category in the controller */
-    @Autowired
-    CategoryService categoryService;
+//    /* Injecting services of category in the controller */
+//    @Autowired
+//    CategoryService categoryService;
 
     @RequestMapping(method = RequestMethod.GET)
     private String getAllBooks(Model model) {
@@ -38,8 +38,8 @@ public class BookController {
     public String showNewBookPage(Model model, @ModelAttribute("category") Category category) {
         Book book = new Book();
         model.addAttribute("book", book);
-        List<Category> list = categoryService.loadAllCategory();
-        model.addAttribute("allCategory", list);
+//        List<Category> list = categoryService.loadAllCategory();
+//        model.addAttribute("allCategory", list);
         return "add-book";
     }
 
@@ -63,8 +63,8 @@ public class BookController {
     private String editBook(@PathVariable("id") int id, Model model) {
         Book book = bookService.loadBookById(id);
         model.addAttribute("book", book);
-        List<Category> list = categoryService.loadAllCategory();
-        model.addAttribute("allCategory", list);
+//        List<Category> list = categoryService.loadAllCategory();
+//        model.addAttribute("allCategory", list);
         return "edit-book";
     }
 
@@ -89,11 +89,11 @@ public class BookController {
      * Entity i.e, Book and reference i.e, category
      * books/delete/{id} => to delete an existing model object
      */
-//    @GetMapping("/delete/{id}")
-//    private String deleteBook(@PathVariable("id") int id) {
-//        bookService.deleteBook();
-//        return "redirect:/books";
-//    }
+    @GetMapping("/delete/{id}")
+    private String deleteBook(@PathVariable("id") int id) {
+        bookService.deleteBook(id);
+        return "redirect:/books";
+    }
 
 
 }
