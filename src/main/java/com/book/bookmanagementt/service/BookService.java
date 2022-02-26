@@ -23,21 +23,25 @@ public class BookService {
 
         return bookrepository.findAll();
     }
+
     public Book loadBookById(int id) {
 
         return bookrepository.findById(id).get();
     }
+
     public Book saveBook(Book book) {
 
         return bookrepository.save(book);
     }
-    public Book updateBook(Book book) {
 
+    public Book updateBook(int id, Book book) {
+        book.setId(id);
         return bookrepository.save(book);
     }
-    public void deleteBook(int id) {
 
-        bookrepository.findById(id).get();
+    public boolean deleteBook(int id) {
+        Book book = bookrepository.findById(id).get();
+        return bookrepository.Deletebookbyid(book);
     }
 //    public Book save(Book book) {
 //        Book createBookRequest = new Book();

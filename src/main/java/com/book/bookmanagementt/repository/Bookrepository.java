@@ -21,7 +21,7 @@ public class Bookrepository {
     public Book save(Book book) {
         throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
     }
-    public Book Deletebookbyid(Book book) {
+    public boolean Deletebookbyid(Book book) {
         throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
     }
 }

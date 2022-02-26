@@ -9,9 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/books")
 public class BookController {
 
@@ -20,7 +21,7 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-//    /* Injecting services of category in the controller */
+    /* Injecting services of category in the controller */
 //    @Autowired
 //    CategoryService categoryService;
 
@@ -38,8 +39,8 @@ public class BookController {
     public String showNewBookPage(Model model, @ModelAttribute("category") Category category) {
         Book book = new Book();
         model.addAttribute("book", book);
-//        List<Category> list = categoryService.loadAllCategory();
-//        model.addAttribute("allCategory", list);
+        List<Category> list =new ArrayList<>();// categoryService.loadAllCategory();
+        model.addAttribute("allCategory", list);
         return "add-book";
     }
 
@@ -77,8 +78,7 @@ public class BookController {
      */
     @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
     private String updateBook(@PathVariable("id") int id, @ModelAttribute Book book) {
-        book.setId(id);
-        bookService.updateBook(book);
+        bookService.updateBook( id,book);
         return "redirect:/books";
     }
 

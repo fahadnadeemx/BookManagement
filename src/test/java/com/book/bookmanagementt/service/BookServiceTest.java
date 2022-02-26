@@ -15,8 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -104,20 +103,35 @@ public class BookServiceTest {
 //        Assert.assertThat(bookService.save(createBookRequest).equals(created);
 
         Book book1 = new Book(1, "first", "Fahad", 1000);
-        when(bookrepository.save(any(Book.class))).thenReturn(new Book());
-
-        List<Book> bookList = Collections.singletonList(bookService.saveBook(book1));
-        assertEquals(1, bookList.size());
+        when(bookrepository.save(book1)).thenReturn(book1);
+        Book resultant = bookService.saveBook(book1);
+        assertEquals(book1, resultant);
     }
 
     @Test
     public void test_updatebook() {
-        Book replacement = spy(new Book(1, "first", "Fahad", 1000));
+        Book replacement = spy(new Book(-2, "first", "Fahad", 1000));
         Book replaced = new Book(2, "saved", "saved", 5000);
-        when(bookrepository.save(any(Book.class)))
-                .thenReturn(replaced);
-        List<Book> bookList = Collections.singletonList(bookService.updateBook(replacement));
-        assertEquals(1, bookList.size());
+        when(bookrepository.save(replacement))
+                .thenReturn(replacement);
+        Book bookList = bookService.updateBook(replaced.getId(), replacement);
+        assertEquals(replacement, bookList);
+//
+//        InOrder inOrder = inOrder(replacement, bookrepository);
+//        inOrder.verify(replacement).setId(2);
+//        inOrder.verify(bookrepository).save(replacement);
+
+    }
+
+    @Test
+    public void test_deletebook() {
+        Book book = new Book(2, "saved", "saved", 5000);
+        when(bookrepository.findById(book.getId()))
+                .thenReturn(Optional.of(book));
+        when(bookrepository.Deletebookbyid(book)).thenReturn(true);
+
+        assertTrue(bookService.deleteBook(book.getId()));
+
 //
 //        InOrder inOrder = inOrder(replacement, bookrepository);
 //        inOrder.verify(replacement).setId(2);
