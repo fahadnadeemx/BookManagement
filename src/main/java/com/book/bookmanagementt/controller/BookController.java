@@ -3,16 +3,16 @@ package com.book.bookmanagementt.controller;
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
 import com.book.bookmanagementt.service.BookService;
-import com.book.bookmanagementt.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Validated
 @RequestMapping("/books")
 public class BookController {
 

@@ -1,5 +1,7 @@
 package com.book.bookmanagementt.entity;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -52,7 +54,7 @@ import javax.persistence.Id;
             this.author = author;
             this.price = price;
         }
-
+        @NotNull
         private String bookname;
         private String author;
         private int price;

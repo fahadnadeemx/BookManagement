@@ -109,6 +109,7 @@ package com.book.bookmanagementt.controller;
 import com.book.bookmanagementt.BookmanagementtApplication;
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.service.BookService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -121,6 +122,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -183,5 +186,18 @@ public class BookControllerTest {
         mockMvc.perform(post(url).contentType("application/json")
                         .content(objectMapper.writeValueAsString(newBook))).
                 andExpect(status().isOk());
+        Mockito.verify(bookService, Mockito.times(0)).saveBook(newBook);
+    }
+
+    @Test
+    public void testBookNameMustNotBeBlank() throws JsonProcessingException, Exception {
+        Book book= new Book(1,"","Fahad",1);
+
+//        Mockito.when(bookService.saveBook(newBook)).thenReturn(savedBook);
+        String url = "/books/save";
+        mockMvc.perform(post(url).contentType("application/json")
+                        .content(objectMapper.writeValueAsString(book)).with(csrf())).
+                andExpect(status().isBadRequest());
+        Mockito.verify(bookService, Mockito.times(0)).saveBook(book);
     }
 }
