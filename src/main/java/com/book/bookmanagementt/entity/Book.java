@@ -4,9 +4,10 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 
-    @Entity
+@Entity
     public class Book {
 
         public Book() {
@@ -55,8 +56,13 @@ import javax.persistence.Id;
             this.price = price;
         }
         @NotNull
+//        @NotBlank(message = "Book Name is mandatory")
         private String bookname;
+
+        @NotNull
+        @NotBlank(message = "Author Name is mandatory")
         private String author;
+
         private int price;
 
     }

@@ -1,26 +1,22 @@
 package com.book.bookmanagementt.service;
 
+import com.book.bookmanagementt.BookmanagementtApplication;
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.repository.Bookrepository;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.*;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = BookmanagementtApplication.class)
 public class BookServiceTest {
 
     @InjectMocks
@@ -34,17 +30,6 @@ public class BookServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
-    //    public void test_getAllBooks() {
-//        //Arrange
-//        Book book1 = new Book(1, "first", "Fahad", 1000);
-//        Book book2 = new Book(2, "second", "Nadeem", 5000);
-//        Mockito.when(bookrepository.findAll()).thenReturn(Arrays.asList(book1, book2));
-//        //Act
-//        List<Book> bookList = bookService.loadAllBooks();
-//        //Assert
-//        Assert.assertEquals(2, bookList.size());
-//    }
     @Test
     public void test_getAllBooks() {
         List<Book> list = new ArrayList<Book>();
@@ -57,7 +42,6 @@ public class BookServiceTest {
         List<Book> bookList = bookService.loadAllBooks();
 
         assertEquals(2, bookList.size());
-
     }
 
     @Test
@@ -126,12 +110,11 @@ public class BookServiceTest {
     @Test
     public void test_deletebook() {
         Book book = new Book(2, "saved", "saved", 5000);
-        when(bookrepository.findById(book.getId()))
-                .thenReturn(Optional.of(book));
-        when(bookrepository.Deletebookbyid(book)).thenReturn(true);
 
-        assertTrue(bookService.deleteBook(book.getId()));
+     doNothing().when(bookrepository).deleteById(book.getId());
 
+//        verify(bookService, atLeastOnce()).deleteBook(book.getId());
+        bookService.deleteBook(book.getId());
 //
 //        InOrder inOrder = inOrder(replacement, bookrepository);
 //        inOrder.verify(replacement).setId(2);

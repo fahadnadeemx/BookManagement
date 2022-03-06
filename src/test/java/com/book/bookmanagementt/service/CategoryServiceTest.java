@@ -5,7 +5,7 @@ import com.book.bookmanagementt.entity.Category;
 import com.book.bookmanagementt.repository.Bookrepository;
 import com.book.bookmanagementt.repository.Categoryrepository;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

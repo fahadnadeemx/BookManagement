@@ -2,14 +2,19 @@ package com.book.bookmanagementt.controller;
 
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.exceptions.BookExceptions;
 import com.book.bookmanagementt.service.BookService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @Validated
@@ -50,9 +55,14 @@ public class BookController {
      * books/new => to create a new model object
      */
     @RequestMapping(path = "/save", method = RequestMethod.POST)
-    public String saveNewBook(@ModelAttribute("book") Book book) {
-        bookService.saveBook(book);
-        return "redirect:/books";
+    public ResponseEntity<String> saveNewBook(@ModelAttribute("book") Book book) {
+        if(book.getBookname().isEmpty() || Objects.isNull(book.getBookname())|| book.getAuthor().isEmpty()||
+     Objects.isNull(   book.getAuthor()))
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        else
+            bookService.saveBook(book);
+
+        return ResponseEntity.ok("redirect:/books");
     }
 
 

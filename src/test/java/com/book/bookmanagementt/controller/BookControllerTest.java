@@ -108,6 +108,7 @@ package com.book.bookmanagementt.controller;
 
 import com.book.bookmanagementt.BookmanagementtApplication;
 import com.book.bookmanagementt.entity.Book;
+import com.book.bookmanagementt.exceptions.BookExceptions;
 import com.book.bookmanagementt.service.BookService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -126,6 +127,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -136,8 +138,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 //@WebMvcTest(BookController.class)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -163,6 +164,7 @@ public class BookControllerTest {
 
     @Test
     public void testListofBooks() throws Exception{
+//        bookService=Mockito.mock(BookService.class);
         List<Book> bookList = new ArrayList<>();
         bookList.add(new Book(1,"first", "first",10));
         bookList.add(new Book(2,"second", "first",20));
@@ -178,26 +180,63 @@ public class BookControllerTest {
 
     @Test
     public void testCreateBook() throws Exception{
+//        bookService=Mockito.mock(BookService.class);
+
         Book newBook = new Book(1,"first", "first",10);
         Book savedBook =new Book(1,"first", "first",10);
 
         Mockito.when(bookService.saveBook(newBook)).thenReturn(savedBook);
         String url = "/books/save";
         mockMvc.perform(post(url).contentType("application/json")
-                        .content(objectMapper.writeValueAsString(newBook))).
+                        .param("id", String.valueOf(newBook.getId()))
+                .param("price", String.valueOf(newBook.getPrice()))
+                        .param("bookname", newBook.getBookname())
+                .param("author", newBook.getAuthor())).
                 andExpect(status().isOk());
         Mockito.verify(bookService, Mockito.times(0)).saveBook(newBook);
     }
 
     @Test
-    public void testBookNameMustNotBeBlank() throws JsonProcessingException, Exception {
-        Book book= new Book(1,"","Fahad",1);
+    public void testUpdateBook() throws Exception{
+//        bookService=Mockito.mock(BookService.class);
 
-//        Mockito.when(bookService.saveBook(newBook)).thenReturn(savedBook);
-        String url = "/books/save";
+        Book newBook = new Book(1,"first", "first",10);
+        Book savedBook =new Book(1,"first", "first",10);
+
+        Mockito.when(bookService.saveBook(newBook)).thenReturn(savedBook);
+        String url = "/books/update/id";
         mockMvc.perform(post(url).contentType("application/json")
-                        .content(objectMapper.writeValueAsString(book)).with(csrf())).
-                andExpect(status().isBadRequest());
-        Mockito.verify(bookService, Mockito.times(0)).saveBook(book);
+                        .param("id", String.valueOf(newBook.getId()))
+                        .param("price", String.valueOf(newBook.getPrice()))
+                        .param("bookname", newBook.getBookname())
+                        .param("author", newBook.getAuthor())).
+                andExpect(status().isOk());
+        Mockito.verify(bookService, Mockito.times(0)).saveBook(newBook);
+    }
+
+    @Test
+    public void testBookNameMustNotBeBlank() throws  Exception {
+        bookService=Mockito.mock(BookService.class);
+        Book book= new Book(1,"","Fahad",1);
+        Mockito.when(bookService.saveBook(book)).thenReturn(book);
+        String url = "/books/save";
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("bookname", "")
+                        .param("author", book.getAuthor()))
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    public void testAuthorNameMustNotBeBlank() throws  Exception {
+        bookService=Mockito.mock(BookService.class);
+        Book book= new Book(1,"First","",1);
+        Mockito.when(bookService.saveBook(book)).thenReturn(book);
+        String url = "/books/save";
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("bookname", book.getBookname())
+                .param("author", ""))
+                .andExpect(status().isBadRequest());
+
     }
 }
