@@ -9,21 +9,5 @@ import java.util.Optional;
 
 public interface Bookrepository extends JpaRepository<Book, Integer> {
 }
-//    BookService bookService;
-//
-//    private static final String TEMPORARY_IMPLEMENTATION =
-//            "Temporary implementation";
-//    public List<Book> findAll() {
-//        throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
-//    }
-//    public Optional<Book> findById(int id) {
-//        throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
-//    }
-//    public Book save(Book book) {
-//        throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
-//    }
-//    public boolean Deletebookbyid(Book book) {
-//        throw new UnsupportedOperationException(TEMPORARY_IMPLEMENTATION);
-//    }
-//}
+
 

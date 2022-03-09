@@ -2,7 +2,6 @@ package com.book.bookmanagementt.controller;
 
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
-import com.book.bookmanagementt.exceptions.BookExceptions;
 import com.book.bookmanagementt.service.BookService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ public class BookController {
     public String showNewBookPage(Model model, @ModelAttribute("category") Category category) {
         Book book = new Book();
         model.addAttribute("book", book);
-        List<Category> list =new ArrayList<>();// categoryService.loadAllCategory();
+        List<Category> list = new ArrayList<>();// categoryService.loadAllCategory();
         model.addAttribute("allCategory", list);
         return "add-book";
     }
@@ -56,9 +55,10 @@ public class BookController {
      */
     @RequestMapping(path = "/save", method = RequestMethod.POST)
     public ResponseEntity<String> saveNewBook(@ModelAttribute("book") Book book) {
-        if(book.getBookname().isEmpty() || Objects.isNull(book.getBookname())|| book.getAuthor().isEmpty()||
-     Objects.isNull(   book.getAuthor()))
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else
             bookService.saveBook(book);
 
@@ -80,18 +80,16 @@ public class BookController {
     }
 
 
-
     /*
      * Update entity model with its foreign reference
      * Entity i.e, Book and reference i.e, category
      * books/update/{id} => to update existing model object
      */
-    @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/update/{id}", method = RequestMethod.PUT)
     private String updateBook(@PathVariable("id") int id, @ModelAttribute Book book) {
-        bookService.updateBook( id,book);
+        bookService.updateBook(id, book);
         return "redirect:/books";
     }
-
 
 
     /*
