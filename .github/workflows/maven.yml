@@ -34,7 +34,16 @@ jobs:
         dockerfile: Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        
+    - name: Unit and Integration Tests
+      run: mvn verify -Pjacoco
+    - name: Coveralls Report
+      run: >
+        mvn clean install verify coveralls:report
+        -DrepoToken=$COVERALLS_REPO_TOKEN
+        -DpullRequest=${{ github.event.pull_request.number }} -X
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}     
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
       with:
