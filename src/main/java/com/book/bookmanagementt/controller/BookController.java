@@ -97,7 +97,7 @@ public class BookController {
      * books/update/{id} => to update existing model object
      */
     @RequestMapping(path = "/update/{id}", method = RequestMethod.PUT)
-    private String updateBook(@PathVariable("id") int id, @ModelAttribute Book book) {
+    private String updateBook(@PathVariable("id") int id, @RequestBody Book book) {
         bookService.updateBook(id, book);
         return "redirect:/books";
     }
