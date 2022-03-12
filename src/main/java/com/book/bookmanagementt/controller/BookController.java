@@ -3,27 +3,36 @@ package com.book.bookmanagementt.controller;
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
 import com.book.bookmanagementt.service.BookService;
-import lombok.extern.java.Log;
+import com.book.bookmanagementt.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @RestController
-@Validated
 @RequestMapping("/books")
 public class BookController {
 
 
     /* Injecting services of books in the controller */
+
     @Autowired
-    BookService bookService;
+   private BookService bookService;
+
+   @Autowired
+   private IBookService iBookService;
+
+   @Inject
+    public BookController(BookService bookService, IBookService iBookService) {
+        this.bookService = bookService;
+       this.iBookService = iBookService;
+   }
 
     /* Injecting services of category in the controller */
 //    @Autowired
@@ -35,6 +44,7 @@ public class BookController {
         model.addAttribute("allBooks", list);
         return "books";
     }
+
 
     /* Redirect to new book page along with categories list
      * books/new => redirect to a new page
@@ -54,7 +64,8 @@ public class BookController {
      * books/new => to create a new model object
      */
     @RequestMapping(path = "/save", method = RequestMethod.POST)
-    public ResponseEntity<String> saveNewBook(@ModelAttribute("book") Book book) {
+//    public ResponseEntity<String> saveNewBook(@ModelAttribute("book") Book book) {
+        public ResponseEntity<String> saveNewBook(@RequestBody Book book) {
         if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
