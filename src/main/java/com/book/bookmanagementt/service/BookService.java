@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class BookService implements IBookService {
@@ -25,9 +25,8 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public Book loadBookById(int id) {
-
-        return bookrepository.findById(id).get();
+    public Optional<Book> loadBookById(int id) {
+        return bookrepository.findById(id);
     }
 
     @Override

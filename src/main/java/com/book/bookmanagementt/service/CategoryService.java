@@ -2,11 +2,16 @@ package com.book.bookmanagementt.service;
 
 import com.book.bookmanagementt.entity.Category;
 import com.book.bookmanagementt.repository.Categoryrepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class CategoryService implements ICategoryService{
 
+    @Autowired
     Categoryrepository categoryRepository;
 
     @Override
@@ -15,8 +20,8 @@ public class CategoryService implements ICategoryService{
     }
 
     @Override
-    public Category loadCategoryById(int id) {
-        return categoryRepository.findById(id).get();
+    public Optional<Category> loadCategoryById(int id) {
+        return categoryRepository.findById(id);
     }
 
     @Override

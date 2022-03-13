@@ -14,32 +14,31 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
 public class BookController {
 
-
+    private static final String REDIRECT = "redirect:/books";
     /* Injecting services of books in the controller */
 
     @Autowired
-   private BookService bookService;
+    private BookService bookService;
 
-   @Autowired
-   private IBookService iBookService;
+    @Autowired
+    private IBookService iBookService;
 
-   @Inject
+    @Inject
     public BookController(BookService bookService, IBookService iBookService) {
         this.bookService = bookService;
-       this.iBookService = iBookService;
-   }
+        this.iBookService = iBookService;
+    }
 
     /* Injecting services of category in the controller */
-//    @Autowired
-//    CategoryService categoryService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    private String getAllBooks(Model model) {
+    @GetMapping
+    public String getAllBooks(Model model) {
         List<Book> list = bookService.loadAllBooks();
         model.addAttribute("allBooks", list);
         return "books";
@@ -53,7 +52,7 @@ public class BookController {
     public String showNewBookPage(Model model, @ModelAttribute("category") Category category) {
         Book book = new Book();
         model.addAttribute("book", book);
-        List<Category> list = new ArrayList<>();// categoryService.loadAllCategory();
+        List<Category> list = new ArrayList<>();
         model.addAttribute("allCategory", list);
         return "add-book";
     }
@@ -63,17 +62,20 @@ public class BookController {
      * Entity i.e, Book and reference i.e, category
      * books/new => to create a new model object
      */
-    @RequestMapping(path = "/save", method = RequestMethod.POST)
-//    public ResponseEntity<String> saveNewBook(@ModelAttribute("book") Book book) {
-        public ResponseEntity<String> saveNewBook(@RequestBody Book book) {
+    @PostMapping(path = "/save")
+
+    public ResponseEntity<String> saveNewBook(@RequestBody Book book) {
+
         if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        else
+        else {
+
             bookService.saveBook(book);
 
-        return ResponseEntity.ok("redirect:/books");
+        }
+        return ResponseEntity.ok(REDIRECT);
     }
 
 
@@ -82,11 +84,11 @@ public class BookController {
      * books/edit/{id} => redirect to a edit book page with selected id
      */
     @GetMapping("/edit/{id}")
-    private String editBook(@PathVariable("id") int id, Model model) {
-        Book book = bookService.loadBookById(id);
-        model.addAttribute("book", book);
-//        List<Category> list = categoryService.loadAllCategory();
-//        model.addAttribute("allCategory", list);
+    public String editBook(@PathVariable("id") int id, Model model) {
+        Optional<Book> book = bookService.loadBookById(id);
+        if (book.isPresent()) {
+            model.addAttribute("book", book.get());
+        }
         return "edit-book";
     }
 
@@ -96,10 +98,11 @@ public class BookController {
      * Entity i.e, Book and reference i.e, category
      * books/update/{id} => to update existing model object
      */
-    @RequestMapping(path = "/update/{id}", method = RequestMethod.PUT)
-    private String updateBook(@PathVariable("id") int id, @RequestBody Book book) {
+    @PostMapping(path = "/update/{id}")
+    public String updateBook(@PathVariable("id") int id, @RequestBody Book book) {
+
         bookService.updateBook(id, book);
-        return "redirect:/books";
+        return REDIRECT;
     }
 
 
@@ -109,9 +112,9 @@ public class BookController {
      * books/delete/{id} => to delete an existing model object
      */
     @GetMapping("/delete/{id}")
-    private String deleteBook(@PathVariable("id") int id) {
+    public String deleteBook(@PathVariable("id") int id) {
         bookService.deleteBook(id);
-        return "redirect:/books";
+        return REDIRECT;
     }
 
 

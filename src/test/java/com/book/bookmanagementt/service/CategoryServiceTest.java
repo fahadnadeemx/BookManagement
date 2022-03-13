@@ -58,8 +58,8 @@ public class CategoryServiceTest {
         Category category1 = new Category(1, "first");
         when(categoryrepository.findById(1)).thenReturn(Optional.of(category1));
 
-        List<Category> categoryList = Collections.singletonList(categoryService.loadCategoryById(1));
-        assertEquals(1, categoryList.size());
+        Optional<Category> categoryList = categoryService.loadCategoryById(1);
+        assertEquals(1, categoryList.get().getId());
 
     }
     @Test

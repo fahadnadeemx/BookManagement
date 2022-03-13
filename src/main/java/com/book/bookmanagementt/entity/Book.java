@@ -1,11 +1,11 @@
 package com.book.bookmanagementt.entity;
 
-import com.book.bookmanagementt.service.BookService;
-import com.sun.istack.NotNull;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 
@@ -50,12 +50,25 @@ public class Book {
     @Id
     private int id;
 
-    public Book(int id, String bookname, String author, int price) {
+    public Book(int id, String bookname, String author, int price, Category category) {
         this.id = id;
         this.bookname = bookname;
         this.author = author;
         this.price = price;
+        this.category = category;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="Cid")
+    private Category category;
 
     @NotNull
 //        @NotBlank(message = "Book Name is mandatory")

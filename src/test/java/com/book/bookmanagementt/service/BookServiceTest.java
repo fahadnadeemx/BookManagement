@@ -2,6 +2,7 @@ package com.book.bookmanagementt.service;
 
 import com.book.bookmanagementt.BookmanagementtApplication;
 import com.book.bookmanagementt.entity.Book;
+import com.book.bookmanagementt.entity.Category;
 import com.book.bookmanagementt.repository.Bookrepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,8 +34,9 @@ public class BookServiceTest {
     @Test
     public void test_getAllBooks() {
         List<Book> list = new ArrayList<Book>();
-        Book book1 = new Book(1, "first", "Fahad", 1000);
-        Book book2 = new Book(2, "second", "Nadeem", 5000);
+        Category category=new Category(1,"Entertainment");
+        Book book1 = new Book(1, "first", "Fahad", 1000,category);
+        Book book2 = new Book(2, "second", "Nadeem", 5000,category);
         list.add(book1);
         list.add(book2);
         when(bookrepository.findAll()).thenReturn(list);
@@ -47,18 +49,19 @@ public class BookServiceTest {
     @Test
     public void test_getBooksById_found() {
         //Arrange
-        Book book1 = new Book(1, "first", "Fahad", 1000);
+        Category category=new Category(1,"Entertainment");
+        Book book1 = new Book(1, "first", "Fahad", 1000,category);
         when(bookrepository.findById(1)).thenReturn(Optional.of(book1));
 
-        List<Book> bookList = Collections.singletonList(bookService.loadBookById(1));
-        assertEquals(1, bookList.size());
+        Optional<Book> bookList = bookService.loadBookById(1);
+        assertEquals(1, bookList.get().getId());
 
     }
 
     @Test
     public void SavedBook() {
-
-        Book book1 = new Book(1, "first", "Fahad", 1000);
+        Category category=new Category(1,"Entertainment");
+        Book book1 = new Book(1, "first", "Fahad", 1000,category);
         when(bookrepository.save(book1)).thenReturn(book1);
         Book resultant = bookService.saveBook(book1);
         assertEquals(book1, resultant);
@@ -66,8 +69,9 @@ public class BookServiceTest {
 
     @Test
     public void test_updatebook() {
-        Book replacement = spy(new Book(-2, "first", "Fahad", 1000));
-        Book replaced = new Book(2, "saved", "saved", 5000);
+        Category category=new Category(1,"Entertainment");
+        Book replacement = spy(new Book(-2, "first", "Fahad", 1000,category));
+        Book replaced = new Book(2, "saved", "saved", 5000,category);
         when(bookrepository.save(replacement))
                 .thenReturn(replacement);
         Book bookList = bookService.updateBook(replaced.getId(), replacement);
@@ -76,7 +80,8 @@ public class BookServiceTest {
 
     @Test
     public void test_deletebook() {
-        Book book = new Book(2, "saved", "saved", 5000);
+        Category category=new Category(1,"Entertainment");
+        Book book = new Book(2, "saved", "saved", 5000,category);
      doNothing().when(bookrepository).deleteById(book.getId());
         bookService.deleteBook(book.getId());
 

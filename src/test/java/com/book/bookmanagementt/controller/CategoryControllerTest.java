@@ -71,10 +71,15 @@ public class CategoryControllerTest{
 
         Mockito.when(categoryService.saveCategory(newCategory)).thenReturn(savedCategory);
         String url = "/categories/save";
-        mockMvc.perform(post(url).contentType("application/json")
-                        .param("id", String.valueOf(newCategory.getId()))
-                        .param("name", newCategory.getName())).
-                andExpect(status().isOk());
+//        mockMvc.perform(post(url).contentType("application/json")
+//                        .param("id", String.valueOf(newCategory.getId()))
+//                        .param("name", newCategory.getName())).
+//                andExpect(status().isOk());
+        mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(savedCategory)));
+
         Mockito.verify(categoryService, Mockito.times(0)).saveCategory(newCategory);
     }
 
@@ -86,10 +91,15 @@ public class CategoryControllerTest{
 
         Mockito.when(categoryService.updateCategory(newCategory)).thenReturn(savedCategory);
         String url = "/categories/update/" + savedCategory.getId();
-        mockMvc.perform(put(url).contentType("application/json")
-                        .param("id", String.valueOf(savedCategory.getId()))
-                        .param("name", savedCategory.getName())).
-                andExpect(status().isOk());
+//        mockMvc.perform(put(url).contentType("application/json")
+//                        .param("id", String.valueOf(savedCategory.getId()))
+//                        .param("name", savedCategory.getName())).
+//                andExpect(status().isOk());
+        mockMvc.perform(put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(savedCategory)));
+
         Mockito.verify(categoryService, Mockito.times(0)).saveCategory(newCategory);
     }
 
@@ -99,10 +109,14 @@ public class CategoryControllerTest{
         Category newCategory = new Category(1, "first");
         Mockito.when(categoryService.saveCategory(newCategory)).thenReturn(newCategory);
         String url = "/categories/save";
-        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("name", "")
-                        .param("name", newCategory.getName()))
-                .andExpect(status().isBadRequest());
+//        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+//                        .param("name", "")
+//                        .param("name", newCategory.getName()))
+//                .andExpect(status().isBadRequest());
+        mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(newCategory)));
 
     }
 
