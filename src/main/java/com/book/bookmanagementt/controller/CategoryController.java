@@ -55,6 +55,7 @@ public class CategoryController {
             model.addAttribute("category", category);
         }
         return "edit-category";
+
     }
 
     @PostMapping(path = "/update/{id}")

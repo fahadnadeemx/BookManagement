@@ -77,13 +77,6 @@ public class BookControllerTest {
 
         Mockito.when(bookService.saveBook(newBook)).thenReturn(savedBook);
         String url = "/books/save";
-//        mockMvc.perform(post(url).contentType("application/json")
-//                        .param("id", String.valueOf(newBook.getId()))
-//                        .param("price", String.valueOf(newBook.getPrice()))
-//                        .param("bookname", newBook.getBookname())
-//                        .param("author", newBook.getAuthor())).
-//                andExpect(status().isOk());
-
 
         mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -101,16 +94,6 @@ public class BookControllerTest {
 
         Mockito.when(bookService.updateBook(newBook.getId(), newBook)).thenReturn(savedBook);
         String url = "/books/update/" + savedBook.getId();
-//        mockMvc.perform(put(url).contentType("application/json")
-//                        .content()
-//                        .param("id", String.valueOf(newBook.getId()))
-//                        .param("price", String.valueOf(newBook.getPrice()))
-//                        .param("bookname", newBook.getBookname())
-//                        .param("author", newBook.getAuthor())
-//                        .param("category", category)).
-//                andExpect(status().isOk());
-
-
         mockMvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -139,10 +122,7 @@ public class BookControllerTest {
         Book book = new Book(1, "First", "", 1, category);
         Mockito.when(bookService.saveBook(book)).thenReturn(book);
         String url = "/books/save";
-//        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                        .param("bookname", book.getBookname())
-//                        .param("author", ""))
-//                .andExpect(status().isBadRequest());
+
         mockMvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
