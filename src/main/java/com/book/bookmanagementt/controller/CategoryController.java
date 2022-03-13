@@ -24,6 +24,8 @@ public class CategoryController {
 //        return "categories";
         return "categories";
     }
+
+
     @RequestMapping("/new")
     public String showNewCategoryPage(Model model) {
         Category category = new Category();
@@ -32,7 +34,7 @@ public class CategoryController {
     }
 
     @RequestMapping(path = "/save", method = RequestMethod.POST)
-    public ResponseEntity<String>  saveNewCategory(@ModelAttribute("category") Category category) {
+    public ResponseEntity<String>  saveNewCategory(@RequestBody Category category) {
 
         if (category.getName().isEmpty() || Objects.isNull(category.getName()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -50,7 +52,7 @@ public class CategoryController {
         return "edit-category";
     }
     @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
-    private String updateCategory(@PathVariable("id") int id, @ModelAttribute Category category) {
+    private String updateCategory(@PathVariable("id") int id, @RequestBody Category category) {
         category.setId(id);
         categoryService.updateCategory(category);
         return "redirect:/categories";
