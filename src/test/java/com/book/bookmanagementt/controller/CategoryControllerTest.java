@@ -49,7 +49,7 @@ public class CategoryControllerTest{
     }
 
     @Test
-    public void testListofBooks() throws Exception {
+    public void testListofCategories() throws Exception {
         List<Category> CategoryList = new ArrayList<>();
         CategoryList.add(new Category(1, "first"));
         CategoryList.add(new Category(2, "second"));
@@ -64,7 +64,7 @@ public class CategoryControllerTest{
     }
 
     @Test
-    public void testCreateBook() throws Exception {
+    public void testCreateCategory() throws Exception {
 
         Category newCategory = new Category(1, "first");
         Category savedCategory = new Category(2, "second");
@@ -84,7 +84,7 @@ public class CategoryControllerTest{
     }
 
     @Test
-    public void testUpdateBook() throws Exception {
+    public void testUpdateCategory() throws Exception {
 
         Category newCategory = new Category(1, "first");
         Category savedCategory = new Category(2, "second");
@@ -104,7 +104,7 @@ public class CategoryControllerTest{
     }
 
     @Test
-    public void testBookNameMustNotBeBlank() throws Exception {
+    public void testCategoryNameMustNotBeBlank() throws Exception {
         categoryService = Mockito.mock(CategoryService.class);
         Category newCategory = new Category(1, "first");
         Mockito.when(categoryService.saveCategory(newCategory)).thenReturn(newCategory);
