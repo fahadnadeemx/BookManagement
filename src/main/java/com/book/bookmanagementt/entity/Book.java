@@ -90,6 +90,9 @@ public class Book {
         } else if (Objects.isNull(book.getAuthor())) {
             throw new IllegalArgumentException("Author :" + book.getAuthor() + " Author is null");
         }
+        else if (Objects.isNull(book.getCategory())) {
+            throw new IllegalArgumentException("Author :" + book.getCategory() + " Category is null");
+        }
     }
 }
 

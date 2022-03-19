@@ -129,4 +129,19 @@ public class BookControllerTest {
                 .content(this.objectMapper.writeValueAsString(book)));
 
     }
+
+    @Test
+    public void testCategoryNameMustNotBeNull() throws Exception {
+        bookService = Mockito.mock(BookService.class);
+        Category category = new Category(1, "");
+        Book book = new Book(1, "First", "Fahad", 1, category);
+        Mockito.when(bookService.saveBook(book)).thenReturn(book);
+        String url = "/books/save";
+
+        mockMvc.perform(put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(book)));
+
+    }
 }
