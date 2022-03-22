@@ -14,19 +14,21 @@
     <name>Bookmanagementt</name>
     <description>Bookmanagementt</description>
     <properties>
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
         <java.version>11</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <sonar.organization>fahadnadeemx</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.coverage.exclusions>
-            **/BookmanagementtApplication.*,
-            **/entity/*.*,
-            **/exceptions/*.*,
-            **/service/*.*,
-            **/controller/*.*,
-        </sonar.coverage.exclusions>
-        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+<!--        <maven.compiler.source>${java.version}</maven.compiler.source>-->
+<!--        <maven.compiler.target>${java.version}</maven.compiler.target>-->
+<!--        <sonar.organization>fahadnadeemx</sonar.organization>-->
+<!--        <sonar.host.url>https://sonarcloud.io</sonar.host.url>-->
+<!--        <sonar.coverage.exclusions>-->
+<!--            **/BookmanagementtApplication.*,-->
+<!--            **/entity/*.*,-->
+<!--            **/exceptions/*.*,-->
+<!--            **/service/*.*,-->
+<!--            **/controller/*.*,-->
+<!--        </sonar.coverage.exclusions>-->
+<!--        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>-->
     </properties>
     <dependencies>
         <dependency>
