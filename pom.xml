@@ -26,7 +26,6 @@
 <!--            **/entity/*.*,-->
 <!--            **/exceptions/*.*,-->
 <!--            **/service/*.*,-->
-<!--            **/controller/*.*,-->
 <!--        </sonar.coverage.exclusions>-->
 <!--        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>-->
     </properties>
