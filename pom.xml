@@ -24,6 +24,7 @@
             **/entity/*.*,
             **/exceptions/*.*,
             **/service/*.*,
+            **/controller/*.*,
         </sonar.coverage.exclusions>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     </properties>
@@ -215,6 +216,7 @@
                         <exclude>**/entities/*.*</exclude>
                         <exclude>**/service/*.*</exclude>
                         <exclude>**/exceptions/*.*</exclude>
+                        <exclude>**/controller/*.*</exclude>
                         <exclude>**/Bookmanagementt.*</exclude>
                     </excludes>
                 </configuration>
