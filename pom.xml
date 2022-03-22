@@ -20,7 +20,7 @@
         <sonar.organization>fahadnadeemx</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.coverage.exclusions>
-            **/Bookmanagementt.*,
+            **/bookmanagementtApplication.*,
             **/entity/*.*,
             **/exceptions/*.*,
             **/service/*.*,
@@ -213,11 +213,11 @@
                 <version>0.8.6</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/entities/*.*</exclude>
+                        <exclude>**/entity/*.*</exclude>
                         <exclude>**/service/*.*</exclude>
                         <exclude>**/exceptions/*.*</exclude>
                         <exclude>**/controller/*.*</exclude>
-                        <exclude>**/Bookmanagementt.*</exclude>
+                        <exclude>**/bookmanagementtApplication.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
