@@ -119,6 +119,13 @@
             <version>${org.mapstruct.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+        <dependency>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.9.1.2184</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -232,6 +239,12 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- SonarCloud -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.0.2155</version>
+            </plugin>
 
             <plugin>
 
@@ -249,5 +262,13 @@
         </plugins>
         <finalName>book-management</finalName>
     </build>
-
+    <reporting>
+    <plugins>
+    <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.6</version>
+    </plugin>
+    </plugins>
+    </reporting>
 </project>
