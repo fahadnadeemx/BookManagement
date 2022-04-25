@@ -223,9 +223,6 @@
                 <configuration>
                     <excludes>
                         <exclude>**/entity/*.*</exclude>
-                        <exclude>**/service/*.*</exclude>
-                        <exclude>**/exceptions/*.*</exclude>
-                        <exclude>**/controller/*.*</exclude>
                         <exclude>**/BookmanagementtApplication.*</exclude>
                     </excludes>
                 </configuration>
