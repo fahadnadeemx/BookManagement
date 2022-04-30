@@ -214,7 +214,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
             <!-- Jacoco -->
             <plugin>
                 <groupId>org.jacoco</groupId>
