@@ -256,19 +256,19 @@
                     </dependency>
 
                 </dependencies>
-<!--                <configuration>-->
-<!--                    <targetClasses>-->
-<!--                        <param>com.book.bookmanagementt.services.*</param>-->
-<!--                        <param>com.book.bookmanagementt.controller.*</param>-->
-<!--                    </targetClasses>-->
-<!--                    <excludedTestClasses>-->
-<!--                        <param>com.book.bookmanagementt.**.*IT</param>-->
-<!--                        <param>com.book.bookmanagementt.controller.**.*IT</param>-->
-<!--                    </excludedTestClasses>-->
-<!--                    <targetTests>-->
-<!--                        <param>com.book.bookmanagementt.services.*</param>-->
-<!--                        <param>com.book.bookmanagementt.controller.*</param>-->
-<!--                    </targetTests>-->
+                <configuration>
+                    <targetClasses>
+                        <param>com.book.bookmanagementt.services.*</param>
+                        <param>com.book.bookmanagementt.controller.*</param>
+                    </targetClasses>
+                    <excludedTestClasses>
+                        <param>com.book.bookmanagementt.**.*IT</param>
+                        <param>com.book.bookmanagementt.controller.**.*IT</param>
+                    </excludedTestClasses>
+                    <targetTests>
+                        <param>com.book.bookmanagementt.services.*</param>
+                        <param>com.book.bookmanagementt.controller.*</param>
+                    </targetTests>
                     <avoidCallsTo>
                         <avoidCallsTo>java.util.logging</avoidCallsTo>
                         <avoidCallsTo>org.apache.log4j</avoidCallsTo>
