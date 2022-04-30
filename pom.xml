@@ -14,15 +14,14 @@
     <name>Bookmanagementt</name>
     <description>Bookmanagementt</description>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <sonar.organization>fahadnadeemx</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.coverage.exclusions>
-            **/Bookmanagementt.*,
-            **/entity/*.*,
-        </sonar.coverage.exclusions>
+
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     </properties>
     <dependencies>
@@ -113,24 +112,20 @@
             <version>${org.mapstruct.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+        <dependency>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.9.1.2184</version>
+        </dependency>
+
     </dependencies>
 
     <build>
 
         <plugins>
 
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -209,8 +204,8 @@
                 <version>0.8.6</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/entities/*.*</exclude>
-                        <exclude>**/Bookmanagementt.*</exclude>
+                        <exclude>**/entity/*.*</exclude>
+                        <exclude>**/BookmanagementtApplication.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -222,6 +217,12 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- SonarCloud -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.0.2155</version>
             </plugin>
 
             <plugin>
@@ -240,5 +241,13 @@
         </plugins>
         <finalName>book-management</finalName>
     </build>
-
+    <reporting>
+    <plugins>
+    <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.6</version>
+    </plugin>
+    </plugins>
+    </reporting>
 </project>

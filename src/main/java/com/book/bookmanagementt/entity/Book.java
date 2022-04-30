@@ -71,7 +71,7 @@ public class Book {
     private Category category;
 
     @NotNull
-//        @NotBlank(message = "Book Name is mandatory")
+    @NotBlank(message = "Book Name is mandatory")
     private String bookname;
 
     @NotNull
@@ -82,13 +82,16 @@ public class Book {
 
     public void validate(Book book) {
         if (book.getBookname().isEmpty()) {
-            throw new IllegalArgumentException("Book Name :" + book.getBookname() + " Book Name is empty");
+            throw new IllegalArgumentException("Book Name is Empty :" + book.getBookname() + " Book Name is empty");
         } else if (Objects.isNull(book.getBookname())) {
-            throw new IllegalArgumentException("Book Name :" + book.getBookname() + " Book Name is null");
+            throw new IllegalArgumentException("Book Name is Null :" + book.getBookname() + " Book Name is null");
         } else if (book.getAuthor().isEmpty()) {
-            throw new IllegalArgumentException("Author :" + book.getAuthor() + " Author Name is empty");
+            throw new IllegalArgumentException("Author is Empty :" + book.getAuthor() + " Author Name is empty");
         } else if (Objects.isNull(book.getAuthor())) {
-            throw new IllegalArgumentException("Author :" + book.getAuthor() + " Author is null");
+            throw new IllegalArgumentException("Author is Null :" + book.getAuthor() + " Author is null");
+        }
+        else if (Objects.isNull(book.getCategory())) {
+            throw new IllegalArgumentException("Category  is Null:" + book.getCategory() + " Category is null");
         }
     }
 }

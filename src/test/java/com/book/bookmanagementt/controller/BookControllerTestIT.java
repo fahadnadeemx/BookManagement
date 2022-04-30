@@ -148,7 +148,7 @@ public class BookControllerTestIT {
 
     }
     @Test
-    public void test_deleteUser() throws Exception {
+    public void test_deleteCategory() throws Exception {
 
         // given
         Book book = new Book();

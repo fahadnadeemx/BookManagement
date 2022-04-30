@@ -59,7 +59,7 @@ public class CategoryControllerTestIT {
 
 
     @Test
-    public void test_createNewBook() throws Exception {
+    public void test_createNewCategory() throws Exception {
         Category category = new Category();
         category.setId(1);
         category.setName("Entertainment");
@@ -83,7 +83,7 @@ public class CategoryControllerTestIT {
     }
 
     @Test
-    public void test_getallbooks() throws Exception {
+    public void test_getallCategory() throws Exception {
         Category category = new Category();
         category.setId(1);
         category.setName("Entertainment");
@@ -97,7 +97,7 @@ public class CategoryControllerTestIT {
 
     }
     @Test
-    public void test_deleteUser() throws Exception {
+    public void test_deleteCategory() throws Exception {
 
         // given
         Category category = new Category();
