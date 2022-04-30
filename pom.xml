@@ -76,6 +76,7 @@
             <version>4.3.0</version>
         </dependency>
 
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -214,8 +215,8 @@
                 <version>0.8.6</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/entities/*.*</exclude>
-                        <exclude>**/BookmanageApplication.*</exclude>
+                        <exclude>**/entity/*.*</exclude>
+                        <exclude>**/BookmanagementtApplication.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
