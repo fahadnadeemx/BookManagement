@@ -201,11 +201,11 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
                 <configuration>
-<!--              <jacocoReports>-->
-<!--                    <jacocoReport>${project.build.directory}/jacoco-ut/jacoco.xml</jacocoReport>-->
-<!--                     <jacocoReport>${project.build.directory}/jacoco-it/jacoco.xml</jacocoReport>-->
-<!--              </jacocoReports>-->
-<!--                    <failOnServiceError>false</failOnServiceError>-->
+              <jacocoReports>
+                    <jacocoReport>${project.build.directory}/jacoco-ut/jacoco.xml</jacocoReport>
+                     <jacocoReport>${project.build.directory}/jacoco-it/jacoco.xml</jacocoReport>
+              </jacocoReports>
+                    <failOnServiceError>false</failOnServiceError>
                     <repoToken>M1I0vNPh1fw80pgREfZPYraYziBCPa2J2</repoToken>
                 </configuration>
             </plugin>
@@ -218,23 +218,11 @@
                         <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
+                            <goal>report</goal>
                         </goals>
                     </execution>
-                    <execution>
-                    <id>report</id>
-                        <phase>prepare-package</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-
-                </execution>
 
                 </executions>
-                <configuration>
-                    <systemPropertyVariables>
-                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
-                    </systemPropertyVariables>
-                </configuration>
             </plugin>
 
 <!--            &lt;!&ndash; Jacoco &ndash;&gt;-->
