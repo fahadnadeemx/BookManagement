@@ -176,48 +176,69 @@
                 </executions>
             </plugin>
 
-            <!-- Coveralls -->
+<!--            &lt;!&ndash; Coveralls &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.eluder.coveralls</groupId>-->
+<!--                <artifactId>coveralls-maven-plugin</artifactId>-->
+<!--                <version>4.3.0</version>-->
+<!--                <configuration>-->
+<!--                    <jacocoReports>-->
+<!--                        <jacocoReport>${project.build.directory}/jacoco-ut/jacoco.xml</jacocoReport>-->
+<!--                        <jacocoReport>${project.build.directory}/jacoco-it/jacoco.xml</jacocoReport>-->
+<!--                    </jacocoReports>-->
+<!--                    <failOnServiceError>false</failOnServiceError>-->
+<!--                </configuration>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>javax.xml.bind</groupId>-->
+<!--                        <artifactId>jaxb-api</artifactId>-->
+<!--                        <version>2.3.1</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
+                <artifactId>coveralls-maven-plugin</artifactId
                 <version>4.3.0</version>
                 <configuration>
-                    <jacocoReports>
-                        <jacocoReport>${project.build.directory}/jacoco-ut/jacoco.xml</jacocoReport>
-                        <jacocoReport>${project.build.directory}/jacoco-it/jacoco.xml</jacocoReport>
-                    </jacocoReports>
-                    <failOnServiceError>false</failOnServiceError>
+                    <repoToken>5H7DpbIulJGTuUOQvNS89pujpftXtBatW</repoToken>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                        <artifactId>jaxb-api</artifactId>
-                        <version>2.3.1</version>
-                    </dependency>
-                </dependencies>
             </plugin>
-
-            <!-- Jacoco -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.6</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/entity/*.*</exclude>
-                        <exclude>**/BookmanagementtApplication.*</exclude>
-                    </excludes>
-                </configuration>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
-                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
+<!--            &lt;!&ndash; Jacoco &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.jacoco</groupId>-->
+<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--                <version>0.8.6</version>-->
+<!--                <configuration>-->
+<!--                    <excludes>-->
+<!--                        <exclude>**/entity/*.*</exclude>-->
+<!--                        <exclude>**/BookmanagementtApplication.*</exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>prepare-agent</id>-->
+<!--                        <goals>-->
+<!--                            <goal>prepare-agent</goal>-->
+<!--                            <goal>report</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <!-- SonarCloud -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
