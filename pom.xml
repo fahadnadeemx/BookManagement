@@ -226,14 +226,7 @@
                     <goals>
                         <goal>report</goal>
                     </goals>
-                        <execution>
-                            <id>post-unit-test</id>
-                            <phase>test</phase>
-                            <configuration>
-                                <dataFile>target/jacoco.exec</dataFile>
-                                <outputDirectory>target/my-reports</outputDirectory>
-                            </configuration>
-                        </execution>
+
                 </execution>
 
                 </executions>
@@ -288,13 +281,13 @@
         </plugins>
         <finalName>book-management</finalName>
     </build>
-<!--    <reporting>-->
-<!--    <plugins>-->
-<!--    <plugin>-->
-<!--        <groupId>org.jacoco</groupId>-->
-<!--        <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--        <version>0.8.6</version>-->
-<!--    </plugin>-->
-<!--    </plugins>-->
-<!--    </reporting>-->
+    <reporting>
+    <plugins>
+    <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.6</version>
+    </plugin>
+    </plugins>
+    </reporting>
 </project>
