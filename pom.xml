@@ -201,6 +201,11 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
                 <configuration>
+              <jacocoReports>
+                    <jacocoReport>${project.build.directory}/jacoco-ut/jacoco.xml</jacocoReport>
+                     <jacocoReport>${project.build.directory}/jacoco-it/jacoco.xml</jacocoReport>
+              </jacocoReports>
+                    <failOnServiceError>false</failOnServiceError>
                     <repoToken>5H7DpbIulJGTuUOQvNS89pujpftXtBatW</repoToken>
                 </configuration>
             </plugin>
@@ -213,6 +218,7 @@
                         <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
+                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
