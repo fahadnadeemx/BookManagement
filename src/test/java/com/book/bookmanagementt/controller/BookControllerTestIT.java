@@ -89,7 +89,7 @@ public class BookControllerTestIT {
         book.setAuthor("Fahad Nadeem");
         book.setPrice(1000);
         String url = "/books/save";
-        final String baseUrl = "http://localhost:8080/books/save";
+        final String baseUrl = "http://localhost:8080/" + url;
         URI uri = new URI(baseUrl);
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-COM-PERSIST", "true");
