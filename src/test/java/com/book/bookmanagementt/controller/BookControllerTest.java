@@ -60,7 +60,7 @@ public class BookControllerTest {
         bookList.add(new Book(2, "second", "first", 20, category));
         bookList.add(new Book(3, "third", "first", 30, category));
         Mockito.when(bookService.loadAllBooks()).thenReturn(bookList);
-        String url = "/books";
+        String url = "/books/allbooks";
         MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
 
         String actualJsonResponse = mvcResult.getResponse().getContentAsString();

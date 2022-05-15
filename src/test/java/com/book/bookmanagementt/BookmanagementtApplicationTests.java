@@ -26,7 +26,8 @@ import static org.springframework.http.RequestEntity.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 //
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class BookmanagementtApplicationTests {
 //
 //    @LocalServerPort
@@ -46,11 +47,10 @@ public class BookmanagementtApplicationTests {
 //                String.class)).contains(book.getId());
 //    }
 ////
-    @Autowired
-BookController bookController;
+
     @Test
-    public void contextLoads() {
-        assertNotNull(bookController);
+   public void contextLoads() {
+
     }
 
 }

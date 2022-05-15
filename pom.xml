@@ -118,7 +118,11 @@
             <artifactId>sonar-maven-plugin</artifactId>
             <version>3.9.1.2184</version>
         </dependency>
-
+        <dependency>
+        <groupId>org.apache.maven.surefire</groupId>
+        <artifactId>surefire-junit47</artifactId>
+        <version>3.0.0-M5</version>
+    </dependency>
     </dependencies>
 
     <build>

@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
-public class BookController {
+public class    BookController {
 
     private static final String REDIRECT = "redirect:/books";
     /* Injecting services of books in the controller */
@@ -37,11 +37,12 @@ public class BookController {
 
     /* Injecting services of category in the controller */
 
-    @GetMapping
-    public String getAllBooks(Model model) {
-        List<Book> list = bookService.loadAllBooks();
-        model.addAttribute("allBooks", list);
-        return "books";
+    @GetMapping("/allbooks")
+    public List<Book> getAllBooks(){
+//    public ResponseEntity<String> getAllBooks(Model model) {
+       return bookService.loadAllBooks();
+
+//        return ResponseEntity.ok("redirect:/index");
     }
 
 
@@ -63,21 +64,16 @@ public class BookController {
      * books/new => to create a new model object
      */
     @PostMapping(path = "/save")
-
     public ResponseEntity<String> saveNewBook(@RequestBody Book book) {
 
         if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        else {
-
+        else
             bookService.saveBook(book);
-
-        }
-        return ResponseEntity.ok(REDIRECT);
+        return ResponseEntity.ok("redirect:/index");
     }
-
 
     /*
      * Redirect to edit book page along with categories list
