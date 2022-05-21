@@ -58,29 +58,29 @@ public class CategoryControllerTestIT {
     }
 
 
-    @Test
-    public void test_createNewCategory() throws Exception {
-        Category category = new Category();
-        category.setId(1);
-        category.setName("Entertainment");
-        TestRestTemplate restTemplate=new TestRestTemplate();
-        final String url = "/categories/save";
-        ObjectMapper objectMapper=new ObjectMapper();
-        final String baseUrl = "http://localhost:8080/categories/save";
-        URI uri = new URI(baseUrl);
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-COM-PERSIST", "true");
-        HttpEntity<Category> request = new HttpEntity<>(category, headers);
-        ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
-        Optional<Category> ex = categoryrepository.findById(category.getId());
-//        mockMvc.perform(post(url)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsString(category)));
-
-        assertEquals(category.getName(), ex.get().getName());
-
-    }
+//    @Test
+//    public void test_createNewCategory() throws Exception {
+//        Category category = new Category();
+//        category.setId(1);
+//        category.setName("Entertainment");
+//        TestRestTemplate restTemplate=new TestRestTemplate();
+//        final String url = "/categories/save";
+//        ObjectMapper objectMapper=new ObjectMapper();
+//        final String baseUrl = "http://localhost:8080/categories/save";
+//        URI uri = new URI(baseUrl);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("X-COM-PERSIST", "true");
+//        HttpEntity<Category> request = new HttpEntity<>(category, headers);
+//        ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
+//        Optional<Category> ex = categoryrepository.findById(category.getId());
+////        mockMvc.perform(post(url)
+////                .contentType(MediaType.APPLICATION_JSON)
+////                .accept(MediaType.APPLICATION_JSON)
+////                .content(objectMapper.writeValueAsString(category)));
+//
+//        assertEquals(category.getName(), ex.get().getName());
+//
+//    }
 
     @Test
     public void test_getallCategory() throws Exception {

@@ -1,19 +1,14 @@
 package com.book.bookmanagementt.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
-
-    public Category(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Category() {
-
-    }
 
     public int getId() {
         return id;
@@ -33,9 +28,6 @@ public class Category {
 
     @Id
     private int id;
-
     private String name;
 
-
 }
-

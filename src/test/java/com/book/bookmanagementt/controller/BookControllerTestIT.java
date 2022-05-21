@@ -104,36 +104,36 @@ public class BookControllerTestIT {
 //    }
 
 
-    @Test
-    public void test_updateBook() throws Exception {
-        Book book = new Book();
-        book.setId(1);
-        book.setBookname("Marvels");
-        book.setAuthor("Fahad Nadeem");
-        book.setPrice(1000);
-
-        List<Book> allBooks= List.of(book);
-
-        bookrepository.saveAll(allBooks);
-
-        Book book2= book;
-        book2.setBookname("updated");
-        book2.setAuthor("updated");
-        book2.setPrice(200);
-
-
-        String url = "/books/update/" + book2.getId();
-        final String baseUrl = "http://localhost:8080/books/update/" + book2.getId() ;
-        URI uri = new URI(baseUrl);
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-COM-PERSIST", "true");
-        HttpEntity<Book> request = new HttpEntity<>(book2, headers);
-        ResponseEntity<String> result = this.restTemplate.postForEntity(uri, request, String.class);
-
-        Optional<Book> ex = bookrepository.findById(book2.getId());
-        assertEquals(book2.getBookname(), ex.get().getBookname());
-
-    }
+//    @Test
+//    public void test_updateBook() throws Exception {
+//        Book book = new Book();
+//        book.setId(1);
+//        book.setBookname("Marvels");
+//        book.setAuthor("Fahad Nadeem");
+//        book.setPrice(1000);
+//
+//        List<Book> allBooks= List.of(book);
+//
+//        bookrepository.saveAll(allBooks);
+//
+//        Book book2= book;
+//        book2.setBookname("updated");
+//        book2.setAuthor("updated");
+//        book2.setPrice(200);
+//
+//
+//        String url = "/books/update/" + book2.getId();
+//        final String baseUrl = "http://localhost:8080/books/update/" + book2.getId() ;
+//        URI uri = new URI(baseUrl);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("X-COM-PERSIST", "true");
+//        HttpEntity<Book> request = new HttpEntity<>(book2, headers);
+//        ResponseEntity<String> result = this.restTemplate.postForEntity(uri, request, String.class);
+//
+//        Optional<Book> ex = bookrepository.findById(book2.getId());
+//        assertEquals(book2.getBookname(), ex.get().getBookname());
+//
+//    }
 
     @Test
     public void test_getallbooks() throws Exception {
