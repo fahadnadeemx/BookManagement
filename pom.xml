@@ -21,7 +21,13 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <sonar.organization>fahadnadeemx</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-
+        <sonar.coverage.exclusions>
+            **/BookmanagementtApplication.*,
+            **/model/*.*,
+            **/entity/*.*,
+            **/mapper/*.*,
+            **/exceptions/*.*,
+        </sonar.coverage.exclusions>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     </properties>
     <dependencies>
@@ -212,6 +218,9 @@
                 <configuration>
                     <excludes>
                         <exclude>**/entity/*.*</exclude>
+                        <exclude>**/model/*.*</exclude>
+                        <exclude>**/mapper/*.*</exclude>
+                        <exclude>**/exceptions/*.*</exclude>
                         <exclude>**/BookmanagementtApplication.*</exclude>
                     </excludes>
                 </configuration>
