@@ -67,7 +67,7 @@ public class Book {
     }
 
     @ManyToOne
-    @JoinColumn(name="Cid")
+    @JoinColumn(name="Cid", referencedColumnName = "id")
     private Category category;
 
     @NotNull

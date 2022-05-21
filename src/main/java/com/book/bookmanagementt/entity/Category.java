@@ -1,6 +1,7 @@
 package com.book.bookmanagementt.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Category {
@@ -34,5 +35,7 @@ public class Category {
     private int id;
 
     private String name;
+
+
 }
 
