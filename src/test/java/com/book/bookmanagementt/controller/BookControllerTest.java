@@ -16,13 +16,14 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doNothing;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -75,13 +76,17 @@ public class BookControllerTest {
 
     @Test
     public void testFindBookbyId() throws Exception {
+        String url = "/books/find/1";
+        MvcResult mvcResultNull = mockMvc.perform(get(url)).andExpect(status().isBadRequest()).andReturn();
+        String actualJsonResponseNull = mvcResultNull.getResponse().getContentAsString();
+        System.out.println(actualJsonResponseNull);
+
 
         Category category = new Category(1, "Entertainment");
 
         BookDto bookDto = new BookDto(1, "first", "first", 10, category);
 
         Mockito.when(bookService.loadBookById(bookDto.getId())).thenReturn(Optional.of(bookDto));
-        String url = "/books/find/1";
         MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
 
         String actualJsonResponse = mvcResult.getResponse().getContentAsString();
@@ -159,11 +164,15 @@ public class BookControllerTest {
         Mockito.when(bookService.saveBook(book)).thenReturn(book);
         String url = "/books/save";
 
-        mockMvc.perform(put(url)
+        // when
+        MockHttpServletResponse response = mockMvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(book)));
+                .content(this.objectMapper.writeValueAsString(book)))
+                .andReturn().getResponse();
 
+        // then
+//        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test
