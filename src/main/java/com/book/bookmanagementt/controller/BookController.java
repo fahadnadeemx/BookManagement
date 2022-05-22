@@ -4,13 +4,11 @@ import com.book.bookmanagementt.model.BookDto;
 import com.book.bookmanagementt.service.BookService;
 import com.book.bookmanagementt.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -56,12 +54,7 @@ public class BookController {
     @PostMapping(path = "/save")
     public ResponseEntity<BookDto> saveNewBook(@RequestBody BookDto book) {
         BookDto response;
-//        if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        else
-            response = bookService.saveBook(book);
+        response = bookService.saveBook(book);
         return ResponseEntity.ok(response);
     }
 
