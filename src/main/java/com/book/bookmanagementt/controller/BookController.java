@@ -1,19 +1,14 @@
 package com.book.bookmanagementt.controller;
 
-import com.book.bookmanagementt.entity.Book;
-import com.book.bookmanagementt.entity.Category;
 import com.book.bookmanagementt.model.BookDto;
-import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.service.BookService;
 import com.book.bookmanagementt.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,7 +17,6 @@ import java.util.Optional;
 @RequestMapping("/books")
 public class BookController {
 
-    private static final String REDIRECT = "redirect:/books";
     /* Injecting services of books in the controller */
 
     @Autowired

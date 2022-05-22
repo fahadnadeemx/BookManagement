@@ -1,18 +1,17 @@
 package com.book.bookmanagementt.controller;
 
-import com.book.bookmanagementt.entity.Category;
+
 import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/categories")
@@ -29,13 +28,13 @@ public class CategoryController {
 
     @PostMapping(path = "/save")
     public ResponseEntity<CategoryDto> saveNewCategory(@RequestBody CategoryDto category) {
-        CategoryDto _category;
+        CategoryDto categoryx;
         if (category.getName().isEmpty() || Objects.isNull(category.getName()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else
-            _category = categoryService.saveCategory(category);
+            categoryx = categoryService.saveCategory(category);
 
-        return ResponseEntity.ok(_category);
+        return ResponseEntity.ok(categoryx);
     }
 
 
@@ -48,13 +47,13 @@ public class CategoryController {
 
     @PostMapping(path = "/update/{id}")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable("id") int id, @RequestBody CategoryDto category) {
-        CategoryDto _category;
+        CategoryDto categoryx;
         if (category.getName().isEmpty() || Objects.isNull(category.getName()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else
-            _category = categoryService.updateCategory(category);
+            categoryx = categoryService.updateCategory(category);
 
-        return ResponseEntity.ok(_category);
+        return ResponseEntity.ok(categoryx);
     }
 
     @GetMapping("/delete/{id}")

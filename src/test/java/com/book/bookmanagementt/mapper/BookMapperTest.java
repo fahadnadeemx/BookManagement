@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class BookMapperTest {
+ class BookMapperTest {
     public static final int id = 1;
     public static final String bookname = "First Book";
     public static final String author = "Fahad Nadeem";
@@ -21,17 +21,17 @@ public class BookMapperTest {
     IBookMapper bookMapper = IBookMapper.INSTANCE;
 
     @Test
-    public void booktobookDtoReturnsNull() {
+    void booktobookDtoReturnsNull() {
         assertNull(bookMapper.mapDto(null));
     }
 
     @Test
-    public void booksTobooksDtoReturnsEmptyObject() {
+    void booksTobooksDtoReturnsEmptyObject() {
         assertNotNull(bookMapper.mapDto(new Book()));
     }
 
     @Test
-    public void BooksToBooksDto() {
+    void BooksToBooksDto() {
         // given
         Book book = new Book();
         book.setId(id);
@@ -54,17 +54,17 @@ public class BookMapperTest {
     }
 
     @Test
-    public void booksDtoToBooksReturnsNull() {
+    void booksDtoToBooksReturnsNull() {
         assertNull(bookMapper.map(null));
     }
 
     @Test
-    public void booksDtoToUsersReturnsEmptyObject() {
+    void booksDtoToUsersReturnsEmptyObject() {
         assertNotNull(bookMapper.map(new BookDto()));
     }
 
     @Test
-    public void BooksDtoToBooks() {
+    void BooksDtoToBooks() {
         // given
 
         BookDto bookDto = new BookDto();
@@ -87,19 +87,19 @@ public class BookMapperTest {
     }
 
     @Test
-    public void toBookDtoReturnsNull() {
+    void toBookDtoReturnsNull() {
         assertNull(bookMapper.mapList(null));
     }
 
     @Test
-    public void toBookDtoReturnsEmptyObject() {
+    void toBookDtoReturnsEmptyObject() {
         List<Book> bookList = new ArrayList<>(Arrays.asList());
 
         assertNotNull(bookMapper.mapList(bookList));
     }
 
     @Test
-    public void toBookDto() {
+    void toBookDto() {
         // given
         List<Book> bookList = new ArrayList<>();
         bookList.add(new Book(1, "first", "first", 10, category));

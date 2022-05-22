@@ -9,24 +9,24 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class CategoryMapperTest {
+class CategoryMapperTest {
     public static final int id = 1;
     public static final String name = "Entertainment";
 
     ICategoryMapper categoryMapper = ICategoryMapper.INSTANCE;
 
     @Test
-    public void CategorytoCategoryDtoReturnsNull() {
+    void CategorytoCategoryDtoReturnsNull() {
         assertNull(categoryMapper.mapDto(null));
     }
 
     @Test
-    public void CategoryToCategoryDtoReturnsEmptyObject() {
+    void CategoryToCategoryDtoReturnsEmptyObject() {
         assertNotNull(categoryMapper.mapDto(new Category()));
     }
 
     @Test
-    public void CategoryToCategoryDto() {
+    void CategoryToCategoryDto() {
         // given
         Category category = new Category();
         category.setId(id);
@@ -44,17 +44,17 @@ public class CategoryMapperTest {
     }
 
     @Test
-    public void CategoryDtoToCategorysReturnsNull() {
+    void CategoryDtoToCategorysReturnsNull() {
         assertNull(categoryMapper.map(null));
     }
 
     @Test
-    public void CategoryDtoToCategoryReturnsEmptyObject() {
+    void CategoryDtoToCategoryReturnsEmptyObject() {
         assertNotNull(categoryMapper.map(new CategoryDto()));
     }
 
     @Test
-    public void CategoryDtoToCategory() {
+    void CategoryDtoToCategory() {
         // given
 
         CategoryDto categoryDto = new CategoryDto();
@@ -72,19 +72,19 @@ public class CategoryMapperTest {
     }
 
     @Test
-    public void toCategoryDtoReturnsNull() {
+    void toCategoryDtoReturnsNull() {
         assertNull(categoryMapper.mapList(null));
     }
 
     @Test
-    public void toCategoryDtoReturnsEmptyObject() {
+    void toCategoryDtoReturnsEmptyObject() {
         List<Category> categoryList = new ArrayList<>(Arrays.asList());
 
         assertNotNull(categoryMapper.mapList(categoryList));
     }
 
     @Test
-    public void toCategoryDto() {
+    void toCategoryDto() {
         // given
         List<Category> categoryList = new ArrayList<>();
         categoryList.add(new Category(1, "first"));

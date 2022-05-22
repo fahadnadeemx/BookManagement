@@ -3,11 +3,9 @@ package com.book.bookmanagementt.service;
 import com.book.bookmanagementt.BookmanagementtApplication;
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
-import com.book.bookmanagementt.mapper.BookMapperTest;
 import com.book.bookmanagementt.mapper.IBookMapper;
 import com.book.bookmanagementt.model.BookDto;
 import com.book.bookmanagementt.repository.Bookrepository;
-import org.aspectj.util.Reflection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -93,6 +91,5 @@ public class BookServiceTest {
         Book book = new Book(2, "saved", "saved", 5000, category);
         doNothing().when(bookrepository).deleteById(book.getId());
         bookService.deleteBook(book.getId());
-
     }
 }

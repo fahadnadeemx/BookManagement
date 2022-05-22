@@ -1,17 +1,13 @@
 package com.book.bookmanagementt.service;
 
 import com.book.bookmanagementt.entity.Book;
-import com.book.bookmanagementt.exceptions.CustomExceptions;
 import com.book.bookmanagementt.mapper.IBookMapper;
 import com.book.bookmanagementt.model.BookDto;
 import com.book.bookmanagementt.repository.Bookrepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -43,13 +39,8 @@ public class BookService implements IBookService {
 
     @Override
     public BookDto saveBook(BookDto book) {
-//        if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
-//            Throw new CustomExceptions("Please write book name!");
-//        else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        else
-        Book _book = bookrepository.save(bookMapper.map(book));
-        return bookMapper.mapDto(_book);
+        Book booksaved = bookrepository.save(bookMapper.map(book));
+        return bookMapper.mapDto(booksaved);
     }
 
     @Override
@@ -57,8 +48,8 @@ public class BookService implements IBookService {
         book.setId(id);
 
         Book res = bookMapper.map(book);
-        Book _book = bookrepository.save(res);
-        return bookMapper.mapDto(_book);
+        Book booksaved = bookrepository.save(res);
+        return bookMapper.mapDto(booksaved);
     }
 
     @Override

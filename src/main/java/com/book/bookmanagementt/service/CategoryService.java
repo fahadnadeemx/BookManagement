@@ -1,7 +1,6 @@
 package com.book.bookmanagementt.service;
 
 import com.book.bookmanagementt.entity.Category;
-import com.book.bookmanagementt.mapper.IBookMapper;
 import com.book.bookmanagementt.mapper.ICategoryMapper;
 import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.repository.Categoryrepository;
@@ -35,8 +34,8 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public CategoryDto saveCategory(CategoryDto category) {
-        Category _category = categoryRepository.save(categoryMapper.map(category));
-        return categoryMapper.mapDto(_category);
+        Category categorys = categoryRepository.save(categoryMapper.map(category));
+        return categoryMapper.mapDto(categorys);
     }
 
     @Override
@@ -46,8 +45,8 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public CategoryDto updateCategory(CategoryDto category) {
-        Category _category = categoryRepository.save(categoryMapper.map(category));
-        return categoryMapper.mapDto(_category);
+        Category categoryx = categoryRepository.save(categoryMapper.map(category));
+        return categoryMapper.mapDto(categoryx);
     }
 
 }
