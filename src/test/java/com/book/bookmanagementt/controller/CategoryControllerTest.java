@@ -16,9 +16,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -57,6 +62,19 @@ public class CategoryControllerTest{
         CategoryList.add(new CategoryDto(3, "third"));
         Mockito.when(categoryService.loadAllCategory()).thenReturn(CategoryList);
         String url = "/categories";
+        MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+
+        String actualJsonResponse = mvcResult.getResponse().getContentAsString();
+        System.out.println(actualJsonResponse);
+
+    }
+
+    @Test
+    public void testLoadCategoryByIds() throws Exception {
+        CategoryDto categoryDto = new CategoryDto(1, "first");
+
+        Mockito.when(categoryService.loadCategoryById(categoryDto.getId())).thenReturn(categoryDto);
+        String url = "/categories/find/1";
         MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
 
         String actualJsonResponse = mvcResult.getResponse().getContentAsString();
@@ -114,11 +132,13 @@ public class CategoryControllerTest{
 //                        .param("name", "")
 //                        .param("name", newCategory.getName()))
 //                .andExpect(status().isBadRequest());
-        mockMvc.perform(post(url)
+        MockHttpServletResponse response =   mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(newCategory)));
+                .content(this.objectMapper.writeValueAsString(newCategory))).andReturn().getResponse();
 
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
 

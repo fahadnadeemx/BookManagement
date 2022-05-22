@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -67,13 +67,12 @@ public class CategoryServiceTest {
 
     @Test
     public void SaveCategory() {
-        CategoryDto replacement = spy(new CategoryDto(1, "first"));
         Category replaced = new Category(2, "saved");
         CategoryDto categoryreplaced = new CategoryDto(2, "saved");
-
         when(categoryrepository.save(any(Category.class)))
                 .thenReturn(replaced);
-        CategoryDto categoryList = categoryService.updateCategory(replacement);
+
+        CategoryDto categoryList = categoryService.saveCategory(categoryreplaced);
         assertEquals(categoryreplaced, categoryList);
     }
 
@@ -88,4 +87,16 @@ public class CategoryServiceTest {
         CategoryDto categoryList = categoryService.updateCategory(replacement);
         assertEquals(categoryreplaced, categoryList);
     }
+
+    @Test
+    public void testDeleteCategoryById_found() {
+        //Arrange
+        doNothing().when(categoryrepository).deleteById(1);
+        categoryService.deleteCategory(1);
+
+        Category category = categoryrepository.getById(1);
+        assertNull(category);
+
+    }
 }
+
