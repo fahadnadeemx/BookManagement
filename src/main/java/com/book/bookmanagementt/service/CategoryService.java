@@ -1,6 +1,9 @@
 package com.book.bookmanagementt.service;
 
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.mapper.IBookMapper;
+import com.book.bookmanagementt.mapper.ICategoryMapper;
+import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.repository.Categoryrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,24 +12,31 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryService implements ICategoryService{
+public class CategoryService implements ICategoryService {
 
     @Autowired
     Categoryrepository categoryRepository;
 
+    private static final ICategoryMapper categoryMapper = ICategoryMapper.INSTANCE;
+
     @Override
-    public List<Category> loadAllCategory(){
-        return categoryRepository.findAll();
+    public List<CategoryDto> loadAllCategory() {
+        List<Category> categoryList = categoryRepository.findAll();
+        return categoryMapper.mapList(categoryList);
     }
 
     @Override
-    public Optional<Category> loadCategoryById(int id) {
-        return categoryRepository.findById(id);
+    public CategoryDto loadCategoryById(int id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isPresent())
+            return categoryMapper.mapDto(category.get());
+        return new CategoryDto();
     }
 
     @Override
-    public Category saveCategory(Category category) {
-        return categoryRepository.save(category);
+    public CategoryDto saveCategory(CategoryDto category) {
+        Category _category = categoryRepository.save(categoryMapper.map(category));
+        return categoryMapper.mapDto(_category);
     }
 
     @Override
@@ -35,8 +45,9 @@ public class CategoryService implements ICategoryService{
     }
 
     @Override
-    public Category updateCategory(Category category) {
-        return categoryRepository.save(category);
+    public CategoryDto updateCategory(CategoryDto category) {
+        Category _category = categoryRepository.save(categoryMapper.map(category));
+        return categoryMapper.mapDto(_category);
     }
 
 }

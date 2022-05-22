@@ -55,9 +55,12 @@ public class BookService implements IBookService {
     @Override
     public BookDto updateBook(int id, BookDto book) {
         book.setId(id);
-        Book _book = bookrepository.save(bookMapper.map(book));
+
+        Book res = bookMapper.map(book);
+        Book _book = bookrepository.save(res);
         return bookMapper.mapDto(_book);
     }
+
     @Override
     public void deleteBook(int id) {
         bookrepository.deleteById(id);

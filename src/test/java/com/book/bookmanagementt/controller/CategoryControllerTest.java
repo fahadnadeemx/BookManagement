@@ -4,6 +4,7 @@ package com.book.bookmanagementt.controller;
 import com.book.bookmanagementt.BookmanagementtApplication;
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.service.BookService;
 import com.book.bookmanagementt.service.CategoryService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,10 +51,10 @@ public class CategoryControllerTest{
 
     @Test
     public void testListofCategories() throws Exception {
-        List<Category> CategoryList = new ArrayList<>();
-        CategoryList.add(new Category(1, "first"));
-        CategoryList.add(new Category(2, "second"));
-        CategoryList.add(new Category(3, "third"));
+        List<CategoryDto> CategoryList = new ArrayList<>();
+        CategoryList.add(new CategoryDto(1, "first"));
+        CategoryList.add(new CategoryDto(2, "second"));
+        CategoryList.add(new CategoryDto(3, "third"));
         Mockito.when(categoryService.loadAllCategory()).thenReturn(CategoryList);
         String url = "/categories";
         MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
@@ -66,8 +67,8 @@ public class CategoryControllerTest{
     @Test
     public void testCreateCategory() throws Exception {
 
-        Category newCategory = new Category(1, "first");
-        Category savedCategory = new Category(2, "second");
+        CategoryDto newCategory = new CategoryDto(1, "first");
+        CategoryDto savedCategory = new CategoryDto(2, "second");
 
         Mockito.when(categoryService.saveCategory(newCategory)).thenReturn(savedCategory);
         String url = "/categories/save";
@@ -86,8 +87,8 @@ public class CategoryControllerTest{
     @Test
     public void testUpdateCategory() throws Exception {
 
-        Category newCategory = new Category(1, "first");
-        Category savedCategory = new Category(2, "second");
+        CategoryDto newCategory = new CategoryDto(1, "first");
+        CategoryDto savedCategory = new CategoryDto(2, "second");
 
         Mockito.when(categoryService.updateCategory(newCategory)).thenReturn(savedCategory);
         String url = "/categories/update/" + savedCategory.getId();
@@ -106,7 +107,7 @@ public class CategoryControllerTest{
     @Test
     public void testCategoryNameMustNotBeBlank() throws Exception {
         categoryService = Mockito.mock(CategoryService.class);
-        Category newCategory = new Category(1, "first");
+        CategoryDto newCategory = new CategoryDto(1, "first");
         Mockito.when(categoryService.saveCategory(newCategory)).thenReturn(newCategory);
         String url = "/categories/save";
 //        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_FORM_URLENCODED)

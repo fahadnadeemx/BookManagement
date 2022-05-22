@@ -1,6 +1,7 @@
 package com.book.bookmanagementt.controller;
 
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,59 +16,50 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/categories")
-public class    CategoryController {
+public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
     @GetMapping()
-    public ResponseEntity<String> getAllCategory(Model model) {
-        List<Category> list = categoryService.loadAllCategory();
-        model.addAttribute("allCategory", list);
-        return ResponseEntity.ok("categories");
-    }
-
-
-    @RequestMapping("/new")
-    public String showNewCategoryPage(Model model) {
-        Category category = new Category();
-        model.addAttribute("category", category);
-        return "add-category";
+    public ResponseEntity<List<CategoryDto>> getAllCategory() {
+        List<CategoryDto> list = categoryService.loadAllCategory();
+        return ResponseEntity.ok(list);
     }
 
     @PostMapping(path = "/save")
-    public ResponseEntity<String> saveNewCategory(@RequestBody Category category) {
-
+    public ResponseEntity<CategoryDto> saveNewCategory(@RequestBody CategoryDto category) {
+        CategoryDto _category;
         if (category.getName().isEmpty() || Objects.isNull(category.getName()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else
-            categoryService.saveCategory(category);
+            _category = categoryService.saveCategory(category);
 
-        return ResponseEntity.ok("redirect:/index");
+        return ResponseEntity.ok(_category);
     }
 
 
-    @GetMapping("/edit/{id}")
-    public String editCategory(@PathVariable("id") int id, Model model) {
-        Optional<Category> category = categoryService.loadCategoryById(id);
-        if(category.isPresent())
-        {
-            model.addAttribute("category", category);
-        }
-        return "edit-category";
+    @GetMapping("/find/{id}")
+    public ResponseEntity<CategoryDto> find(@PathVariable("id") int id) {
+        CategoryDto category = categoryService.loadCategoryById(id);
+        return ResponseEntity.ok(category);
 
     }
 
     @PostMapping(path = "/update/{id}")
-    public String updateCategory(@PathVariable("id") int id, @RequestBody Category category) {
-        category.setId(id);
-        categoryService.updateCategory(category);
-        return "redirect:/categories";
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable("id") int id, @RequestBody CategoryDto category) {
+        CategoryDto _category;
+        if (category.getName().isEmpty() || Objects.isNull(category.getName()))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        else
+            _category = categoryService.updateCategory(category);
+
+        return ResponseEntity.ok(_category);
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteCategory(@PathVariable("id") int id) {
+    public ResponseEntity<Boolean> deleteCategory(@PathVariable("id") int id) {
         categoryService.deleteCategory(id);
-        return "redirect:/categories";
+        return ResponseEntity.ok(Boolean.TRUE);
     }
 }

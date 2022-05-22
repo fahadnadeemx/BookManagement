@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
-public class    BookController {
+public class BookController {
 
     private static final String REDIRECT = "redirect:/books";
     /* Injecting services of books in the controller */
@@ -40,21 +40,8 @@ public class    BookController {
     /* Injecting services of category in the controller */
 
     @GetMapping("/allbooks")
-    public List<BookDto> getAllBooks(){
-       return bookService.loadAllBooks();
-    }
-
-
-    /* Redirect to new book page along with categories list
-     * books/new => redirect to a new page
-     */
-    @RequestMapping("/new")
-    public String showNewBookPage(Model model, @ModelAttribute("category") CategoryDto categoryDto) {
-        Book book = new Book();
-        model.addAttribute("book", book);
-        List<CategoryDto> list = new ArrayList<>();
-        model.addAttribute("allCategory", list);
-        return "add-book";
+    public List<BookDto> getAllBooks() {
+        return bookService.loadAllBooks();
     }
 
     /*
@@ -62,31 +49,26 @@ public class    BookController {
      * Entity i.e, Book and reference i.e, category
      * books/new => to create a new model object
      */
-    @PostMapping(path = "/save")
-    public ResponseEntity<String> saveNewBook(@RequestBody BookDto book) {
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<BookDto> loadbyId(@PathVariable("id") int id) {
+        Optional<BookDto> book= bookService.loadBookById(id);
+        if (book.isPresent()) {
+            return ResponseEntity.ok(book.get());
+        }
+        return ResponseEntity.badRequest().body(new BookDto());
+    }
+    @PostMapping(path = "/save")
+    public ResponseEntity<BookDto> saveNewBook(@RequestBody BookDto book) {
+        BookDto response;
         if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else
-            bookService.saveBook(book);
-        return ResponseEntity.ok("redirect:/index");
+            response = bookService.saveBook(book);
+        return ResponseEntity.ok(response);
     }
-
-    /*
-     * Redirect to edit book page along with categories list
-     * books/edit/{id} => redirect to a edit book page with selected id
-     */
-    @GetMapping("/edit/{id}")
-    public String editBook(@PathVariable("id") int id, Model model) {
-        Optional<BookDto> book = bookService.loadBookById(id);
-        if (book.isPresent()) {
-            model.addAttribute("book", book.get());
-        }
-        return "edit-book";
-    }
-
 
     /*
      * Update entity model with its foreign reference
@@ -94,10 +76,8 @@ public class    BookController {
      * books/update/{id} => to update existing model object
      */
     @PostMapping(path = "/update/{id}")
-    public String updateBook(@PathVariable("id") int id, @RequestBody BookDto book) {
-
-        bookService.updateBook(id, book);
-        return REDIRECT;
+    public ResponseEntity<BookDto> updateBook(@PathVariable("id") int id, @RequestBody BookDto book) {
+        return ResponseEntity.ok(bookService.updateBook(id, book));
     }
 
 
@@ -107,9 +87,9 @@ public class    BookController {
      * books/delete/{id} => to delete an existing model object
      */
     @GetMapping("/delete/{id}")
-    public String deleteBook(@PathVariable("id") int id) {
+    public ResponseEntity<Boolean> deleteBook(@PathVariable("id") int id) {
         bookService.deleteBook(id);
-        return REDIRECT;
+        return ResponseEntity.ok(Boolean.TRUE);
     }
 
 

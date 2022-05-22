@@ -3,8 +3,11 @@ package com.book.bookmanagementt.service;
 import com.book.bookmanagementt.BookmanagementtApplication;
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.mapper.BookMapperTest;
+import com.book.bookmanagementt.mapper.IBookMapper;
 import com.book.bookmanagementt.model.BookDto;
 import com.book.bookmanagementt.repository.Bookrepository;
+import org.aspectj.util.Reflection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +29,9 @@ public class BookServiceTest {
 
     @Mock
     private Bookrepository bookrepository;
+
+    @Mock
+    private  IBookMapper bookMapper ;
 
     @Before
     public void init() {
@@ -73,12 +79,12 @@ public class BookServiceTest {
     @Test
     public void test_updatebook() {
         Category category = new Category(1, "Entertainment");
-        BookDto replacement = spy(new BookDto(-2, "first", "Fahad", 1000, category));
-        BookDto replaced = new BookDto(2, "saved", "saved", 5000, category);
-        Book bookReplacement = spy(new Book(-2, "first", "Fahad", 1000, category));
-        when(bookrepository.save(bookReplacement)).thenReturn(bookReplacement);
-        BookDto bookList = bookService.updateBook(replaced.getId(), replacement);
-        assertEquals(replacement, bookList);
+        BookDto book1 = new BookDto(1, "first update", "Fahad", 1000, category);
+        Book book2 = new Book(1, "first update", "Fahad", 1000, category);
+
+        when(bookrepository.save(book2)).thenReturn(book2);
+        BookDto resultant = bookService.updateBook(book1.getId(), book1);
+        assertEquals(book1, resultant);
     }
 
     @Test

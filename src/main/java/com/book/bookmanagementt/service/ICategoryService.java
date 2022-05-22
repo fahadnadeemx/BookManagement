@@ -1,20 +1,21 @@
 package com.book.bookmanagementt.service;
 
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.model.CategoryDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ICategoryService {
 
-     List<Category> loadAllCategory();
+     List<CategoryDto> loadAllCategory();
 
-     Optional<Category> loadCategoryById(int id) ;
+     CategoryDto loadCategoryById(int id) ;
 
-     Category saveCategory(Category category);
+     CategoryDto saveCategory(CategoryDto category);
 
      void deleteCategory(int id) ;
 
-     Category updateCategory(Category category) ;
+     CategoryDto updateCategory(CategoryDto category) ;
 
 }

@@ -2,6 +2,7 @@ package com.book.bookmanagementt.service;
 
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.repository.Bookrepository;
 import com.book.bookmanagementt.repository.Categoryrepository;
 import org.junit.Before;
@@ -47,37 +48,44 @@ public class CategoryServiceTest {
         list.add(category2);
         when(categoryrepository.findAll()).thenReturn(list);
 
-        List<Category> CategoryList = categoryService.loadAllCategory();
+        List<CategoryDto> CategoryList = categoryService.loadAllCategory();
 
         assertEquals(2, CategoryList.size());
 
     }
+
     @Test
     public void test_getCategoryById_found() {
         //Arrange
         Category category1 = new Category(1, "first");
         when(categoryrepository.findById(1)).thenReturn(Optional.of(category1));
 
-        Optional<Category> categoryList = categoryService.loadCategoryById(1);
-        assertEquals(1, categoryList.get().getId());
+        CategoryDto categoryList = categoryService.loadCategoryById(1);
+        assertEquals(1, categoryList.getId());
 
     }
+
     @Test
     public void SaveCategory() {
-
-        Category category1 = new Category(1, "first");
-        when(categoryrepository.save(any(Category.class))).thenReturn(new Category());
-
-        List<Category> categoryList = Collections.singletonList(categoryService.saveCategory(category1));
-        assertEquals(1, categoryList.size());
-    }
-    @Test
-    public void test_updatecategory() {
-        Category replacement = spy(new Category(1, "first"));
+        CategoryDto replacement = spy(new CategoryDto(1, "first"));
         Category replaced = new Category(2, "saved");
+        CategoryDto categoryreplaced = new CategoryDto(2, "saved");
+
         when(categoryrepository.save(any(Category.class)))
                 .thenReturn(replaced);
-        List<Category> categoryList = Collections.singletonList(categoryService.updateCategory(replacement));
-        assertEquals(1, categoryList.size());
+        CategoryDto categoryList = categoryService.updateCategory(replacement);
+        assertEquals(categoryreplaced, categoryList);
+    }
+
+    @Test
+    public void test_updatecategory() {
+        CategoryDto replacement = spy(new CategoryDto(1, "first"));
+        Category replaced = new Category(2, "saved");
+        CategoryDto categoryreplaced = new CategoryDto(2, "saved");
+
+        when(categoryrepository.save(any(Category.class)))
+                .thenReturn(replaced);
+        CategoryDto categoryList = categoryService.updateCategory(replacement);
+        assertEquals(categoryreplaced, categoryList);
     }
 }

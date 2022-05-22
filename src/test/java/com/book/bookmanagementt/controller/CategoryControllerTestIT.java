@@ -1,7 +1,11 @@
 package com.book.bookmanagementt.controller;
 import com.book.bookmanagementt.BookmanagementtApplication;
+import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
 import static io.restassured.RestAssured.*;
+
+import com.book.bookmanagementt.model.BookDto;
+import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.repository.Categoryrepository;
 import com.book.bookmanagementt.service.BookService;
 import com.book.bookmanagementt.service.CategoryService;
@@ -58,29 +62,27 @@ public class CategoryControllerTestIT {
     }
 
 
-//    @Test
-//    public void test_createNewCategory() throws Exception {
-//        Category category = new Category();
-//        category.setId(1);
-//        category.setName("Entertainment");
-//        TestRestTemplate restTemplate=new TestRestTemplate();
-//        final String url = "/categories/save";
-//        ObjectMapper objectMapper=new ObjectMapper();
-//        final String baseUrl = "http://localhost:8080/categories/save";
-//        URI uri = new URI(baseUrl);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.set("X-COM-PERSIST", "true");
-//        HttpEntity<Category> request = new HttpEntity<>(category, headers);
-//        ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
-//        Optional<Category> ex = categoryrepository.findById(category.getId());
-////        mockMvc.perform(post(url)
-////                .contentType(MediaType.APPLICATION_JSON)
-////                .accept(MediaType.APPLICATION_JSON)
-////                .content(objectMapper.writeValueAsString(category)));
-//
-//        assertEquals(category.getName(), ex.get().getName());
-//
-//    }
+    @Test
+    public void test_createNewCategory() throws Exception {
+
+        Category category = new Category();
+        category.setId(2);
+        category.setName("Entertainment");
+
+        categoryrepository.save(category);
+
+        String url = "/categories/save/";
+        final String baseUrl = "http://localhost:8080/categories/save/";
+        URI uri = new URI(baseUrl);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-COM-PERSIST", "true");
+        HttpEntity<Category> request = new HttpEntity<>(category, headers);
+        ResponseEntity<String> result = this.restTemplate.postForEntity(uri, request, String.class);
+
+        CategoryDto ex = categoryService.loadCategoryById(category.getId());
+        assertEquals(category.getName(), ex.getName());
+
+    }
 
     @Test
     public void test_getallCategory() throws Exception {
