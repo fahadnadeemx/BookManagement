@@ -1,9 +1,8 @@
 package com.book.bookmanagementt.service;
 
-import com.book.bookmanagementt.entity.Book;
+
 import com.book.bookmanagementt.entity.Category;
 import com.book.bookmanagementt.model.CategoryDto;
-import com.book.bookmanagementt.repository.Bookrepository;
 import com.book.bookmanagementt.repository.Categoryrepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +55,7 @@ public class CategoryServiceTest {
     @Test
     public void test_getCategoryById() {
         CategoryDto categoryDto = categoryService.loadCategoryById(1);
-        assertEquals(0,categoryDto.getId());
+        assertEquals(0, categoryDto.getId());
         assertNull(categoryDto.getName());
         //Arrange
         Category category1 = new Category(1, "first");

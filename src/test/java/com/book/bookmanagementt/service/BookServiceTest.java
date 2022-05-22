@@ -94,5 +94,8 @@ public class BookServiceTest {
         Book book = new Book(2, "saved", "saved", 5000, category);
         doNothing().when(bookrepository).deleteById(book.getId());
         bookService.deleteBook(book.getId());
+
+        Book book1 = bookrepository.getById(1);
+        assertNull(book1);
     }
 }

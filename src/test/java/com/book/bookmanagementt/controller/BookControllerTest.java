@@ -132,39 +132,6 @@ public class BookControllerTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
-//    @Test
-//    public void testBookNameMustNotBeBlank() throws Exception {
-//        bookService = Mockito.mock(BookService.class);
-//        Category category = new Category(1, "Entertainment");
-//        BookDto book = new BookDto(1, "", "Fahad", 1, category);
-//        Mockito.when(bookService.saveBook(book)).thenReturn(book);
-//        String url = "/books/save";
-//        // when
-//        MockHttpServletResponse response = mockMvc.perform(post(url)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsString(book))).andReturn().getResponse();
-//
-//        // then
-//        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-//    }
-//
-//    @Test
-//    public void testAuthorNameMustNotBeBlank() throws Exception {
-//        bookService = Mockito.mock(BookService.class);
-//        Category category = new Category(1, "Entertainment");
-//        BookDto book = new BookDto(1, "First", "", 1, category);
-//        Mockito.when(bookService.saveBook(book)).thenReturn(book);
-//        String url = "/books/save";
-//
-//        MockHttpServletResponse response = mockMvc.perform(post(url)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .content(this.objectMapper.writeValueAsString(book))).andReturn().getResponse();
-//
-//        // then
-//        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-//    }
 
     @Test
     public void testCategoryNameMustNotBeNull() throws Exception {

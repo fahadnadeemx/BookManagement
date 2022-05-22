@@ -94,13 +94,6 @@ public class CategoryControllerTest{
         String url = "/categories/save";
 
         MockHttpServletResponse response ;
-//        =    mockMvc.perform(post(url)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .content(this.objectMapper.writeValueAsString(savedCategory))).andReturn().getResponse();
-//        // then
-//        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-
         savedCategory.setName("updated");
         Mockito.when(categoryService.updateCategory(newCategory)).thenReturn(savedCategory);
 
@@ -121,12 +114,6 @@ public class CategoryControllerTest{
         String url = "/categories/update/" + savedCategory.getId();
 
         MockHttpServletResponse response;
-//        =     mockMvc.perform(post(url)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .content(this.objectMapper.writeValueAsString(savedCategory))).andReturn().getResponse();
-//        // then
-//        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 
         savedCategory.setName("updated");
         Mockito.when(categoryService.updateCategory(newCategory)).thenReturn(savedCategory);
@@ -145,10 +132,7 @@ public class CategoryControllerTest{
         CategoryDto newCategory = new CategoryDto(1, "first");
         Mockito.when(categoryService.saveCategory(newCategory)).thenReturn(newCategory);
         String url = "/categories/save";
-//        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                        .param("name", "")
-//                        .param("name", newCategory.getName()))
-//                .andExpect(status().isBadRequest());
+
         MockHttpServletResponse response =   mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
