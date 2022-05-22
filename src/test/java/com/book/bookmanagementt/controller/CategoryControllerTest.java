@@ -88,20 +88,27 @@ public class CategoryControllerTest{
     public void testCreateCategory() throws Exception {
 
         CategoryDto newCategory = new CategoryDto(1, "first");
-        CategoryDto savedCategory = new CategoryDto(2, "second");
+        CategoryDto savedCategory = new CategoryDto(2, "");
 
         Mockito.when(categoryService.saveCategory(newCategory)).thenReturn(savedCategory);
         String url = "/categories/save";
-//        mockMvc.perform(post(url).contentType("application/json")
-//                        .param("id", String.valueOf(newCategory.getId()))
-//                        .param("name", newCategory.getName())).
-//                andExpect(status().isOk());
-        mockMvc.perform(post(url)
+
+        MockHttpServletResponse response =    mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(savedCategory)));
+                .content(this.objectMapper.writeValueAsString(savedCategory))).andReturn().getResponse();
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 
-        Mockito.verify(categoryService, Mockito.times(0)).saveCategory(newCategory);
+        savedCategory.setName("updated");
+        Mockito.when(categoryService.updateCategory(newCategory)).thenReturn(savedCategory);
+
+        response =   mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(savedCategory))).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test

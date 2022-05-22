@@ -1,7 +1,6 @@
 package com.book.bookmanagementt.model;
 
 import com.book.bookmanagementt.entity.Category;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

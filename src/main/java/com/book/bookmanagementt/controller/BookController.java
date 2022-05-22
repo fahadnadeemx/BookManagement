@@ -46,12 +46,13 @@ public class BookController {
 
     @GetMapping("/find/{id}")
     public ResponseEntity<BookDto> loadbyId(@PathVariable("id") int id) {
-        Optional<BookDto> book= bookService.loadBookById(id);
+        Optional<BookDto> book = bookService.loadBookById(id);
         if (book.isPresent()) {
             return ResponseEntity.ok(book.get());
         }
         return ResponseEntity.badRequest().body(new BookDto());
     }
+
     @PostMapping(path = "/save")
     public ResponseEntity<BookDto> saveNewBook(@RequestBody BookDto book) {
         BookDto response;
@@ -59,8 +60,7 @@ public class BookController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        else
-            response = bookService.saveBook(book);
+        else response = bookService.saveBook(book);
         return ResponseEntity.ok(response);
     }
 
