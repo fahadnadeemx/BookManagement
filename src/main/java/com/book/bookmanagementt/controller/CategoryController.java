@@ -29,9 +29,9 @@ public class CategoryController {
     @PostMapping(path = "/save")
     public ResponseEntity<CategoryDto> saveNewCategory(@RequestBody CategoryDto category) {
         CategoryDto categoryx;
-        if (category.getName().isEmpty() || Objects.isNull(category.getName()))
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        else
+//        if (category.getName().isEmpty() || Objects.isNull(category.getName()))
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        else
             categoryx = categoryService.saveCategory(category);
 
         return ResponseEntity.ok(categoryx);
@@ -48,9 +48,9 @@ public class CategoryController {
     @PostMapping(path = "/update/{id}")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable("id") int id, @RequestBody CategoryDto category) {
         CategoryDto categoryx;
-        if (category.getName().isEmpty() || Objects.isNull(category.getName()))
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        else
+//        if (category.getName().isEmpty() || Objects.isNull(category.getName()))
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        else
             categoryx = categoryService.updateCategory(category);
 
         return ResponseEntity.ok(categoryx);

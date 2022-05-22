@@ -56,11 +56,12 @@ public class BookController {
     @PostMapping(path = "/save")
     public ResponseEntity<BookDto> saveNewBook(@RequestBody BookDto book) {
         BookDto response;
-        if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        else response = bookService.saveBook(book);
+//        if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        else if (book.getAuthor().isEmpty() || Objects.isNull(book.getAuthor()))
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        else
+            response = bookService.saveBook(book);
         return ResponseEntity.ok(response);
     }
 
