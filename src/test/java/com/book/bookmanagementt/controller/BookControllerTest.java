@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -28,6 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -64,6 +66,22 @@ public class BookControllerTest {
 
         Mockito.when(bookService.loadAllBooks()).thenReturn(bookList);
         String url = "/books/allbooks";
+        MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+
+        String actualJsonResponse = mvcResult.getResponse().getContentAsString();
+        System.out.println(actualJsonResponse);
+
+    }
+
+    @Test
+    public void testFindBookbyId() throws Exception {
+
+        Category category = new Category(1, "Entertainment");
+
+        BookDto bookDto = new BookDto(1, "first", "first", 10, category);
+
+        Mockito.when(bookService.loadBookById(bookDto.getId())).thenReturn(Optional.of(bookDto));
+        String url = "/books/find/1";
         MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
 
         String actualJsonResponse = mvcResult.getResponse().getContentAsString();
@@ -145,6 +163,22 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.objectMapper.writeValueAsString(book)));
+
+    }
+
+    @Test
+    public void testDeleteBookbyId() throws Exception {
+
+        Category category = new Category(1, "Entertainment");
+
+        BookDto bookDto = new BookDto(1, "first", "first", 10, category);
+
+        doNothing().when(bookService).deleteBook(bookDto.getId());
+        String url = "/books/delete/1";
+        MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+
+        String actualJsonResponse = mvcResult.getResponse().getContentAsString();
+        System.out.println(actualJsonResponse);
 
     }
 }
