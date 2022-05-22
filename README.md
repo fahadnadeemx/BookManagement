@@ -1,5 +1,5 @@
-Coveralls Coverage: [[![Coverage Status](https://coveralls.io/repos/github/fahadnadeemx/BookManagement/badge.svg?branch=master)](https://coveralls.io/github/fahadnadeemx/BookManagement?branch=master)
-
+Coveralls Coverage: 
+[![Coverage Status](https://coveralls.io/repos/github/fahadnadeemx/BookManagement/badge.svg?branch=master)](https://coveralls.io/github/fahadnadeemx/BookManagement?branch=master)
 Sonarcloud Quality :
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fahadnadeemx_BookManagement&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=fahadnadeemx_BookManagement)
 
