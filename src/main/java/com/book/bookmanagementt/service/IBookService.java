@@ -1,18 +1,20 @@
 package com.book.bookmanagementt.service;
 
 import com.book.bookmanagementt.entity.Book;
+import com.book.bookmanagementt.model.BookDto;
+
 import java.util.List;
 import java.util.Optional;
 
 public interface IBookService {
 
-    List<Book> loadAllBooks();
+    List<BookDto> loadAllBooks();
 
-    Optional<Book> loadBookById(int id);
+    Optional<BookDto> loadBookById(int id);
 
-    Book saveBook(Book book);
+    BookDto saveBook(BookDto book);
 
-    Book updateBook(int id, Book book);
+    BookDto updateBook(int id, BookDto book);
 
     void deleteBook(int id);
 }

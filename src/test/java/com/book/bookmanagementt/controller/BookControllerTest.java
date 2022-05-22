@@ -4,6 +4,7 @@ package com.book.bookmanagementt.controller;
 import com.book.bookmanagementt.BookmanagementtApplication;
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.model.BookDto;
 import com.book.bookmanagementt.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -55,10 +56,12 @@ public class BookControllerTest {
     public void testListofBooks() throws Exception {
         Category category = new Category(1, "Entertainment");
 
-        List<Book> bookList = new ArrayList<>();
-        bookList.add(new Book(1, "first", "first", 10, category));
-        bookList.add(new Book(2, "second", "first", 20, category));
-        bookList.add(new Book(3, "third", "first", 30, category));
+        List<BookDto> bookList = new ArrayList<>();
+        bookList.add(new BookDto(1, "first", "first", 10, category));
+        bookList.add(new BookDto(2, "second", "first", 20, category));
+        bookList.add(new BookDto(3, "third", "first", 30, category));
+
+
         Mockito.when(bookService.loadAllBooks()).thenReturn(bookList);
         String url = "/books/allbooks";
         MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
@@ -72,10 +75,10 @@ public class BookControllerTest {
     public void testCreateBook() throws Exception {
 
         Category category = new Category(1, "Entertainment");
-        Book newBook = new Book(1, "first", "first", 10, category);
+        BookDto newBook = new BookDto(1, "first", "first", 10, category);
         Book savedBook = new Book(1, "first", "first", 10, category);
 
-        Mockito.when(bookService.saveBook(newBook)).thenReturn(savedBook);
+        Mockito.when(bookService.saveBook(newBook)).thenReturn(newBook);
         String url = "/books/save";
 
         mockMvc.perform(post(url)
@@ -89,8 +92,8 @@ public class BookControllerTest {
     public void testUpdateBook() throws Exception {
 
         Category category = new Category(1, "Entertainment");
-        Book newBook = new Book(1, "first", "first", 10, category);
-        Book savedBook = new Book(1, "second", "second", 20, category);
+        BookDto newBook = new BookDto(1, "first", "first", 10, category);
+        BookDto savedBook = new BookDto(1, "second", "second", 20, category);
 
         Mockito.when(bookService.updateBook(newBook.getId(), newBook)).thenReturn(savedBook);
         String url = "/books/update/" + savedBook.getId();
@@ -105,7 +108,7 @@ public class BookControllerTest {
     public void testBookNameMustNotBeBlank() throws Exception {
         bookService = Mockito.mock(BookService.class);
         Category category = new Category(1, "Entertainment");
-        Book book = new Book(1, "", "Fahad", 1, category);
+        BookDto book = new BookDto(1, "", "Fahad", 1, category);
         Mockito.when(bookService.saveBook(book)).thenReturn(book);
         String url = "/books/save";
         mockMvc.perform(put(url)
@@ -119,7 +122,7 @@ public class BookControllerTest {
     public void testAuthorNameMustNotBeBlank() throws Exception {
         bookService = Mockito.mock(BookService.class);
         Category category = new Category(1, "Entertainment");
-        Book book = new Book(1, "First", "", 1, category);
+        BookDto book = new BookDto(1, "First", "", 1, category);
         Mockito.when(bookService.saveBook(book)).thenReturn(book);
         String url = "/books/save";
 
@@ -134,7 +137,7 @@ public class BookControllerTest {
     public void testCategoryNameMustNotBeNull() throws Exception {
         bookService = Mockito.mock(BookService.class);
         Category category = new Category(1, "");
-        Book book = new Book(1, "First", "Fahad", 1, category);
+        BookDto book = new BookDto(1, "First", "Fahad", 1, category);
         Mockito.when(bookService.saveBook(book)).thenReturn(book);
         String url = "/books/save";
 

@@ -2,6 +2,8 @@ package com.book.bookmanagementt.controller;
 
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.model.BookDto;
+import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.service.BookService;
 import com.book.bookmanagementt.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +40,8 @@ public class    BookController {
     /* Injecting services of category in the controller */
 
     @GetMapping("/allbooks")
-    public List<Book> getAllBooks(){
-//    public ResponseEntity<String> getAllBooks(Model model) {
+    public List<BookDto> getAllBooks(){
        return bookService.loadAllBooks();
-
-//        return ResponseEntity.ok("redirect:/index");
     }
 
 
@@ -50,10 +49,10 @@ public class    BookController {
      * books/new => redirect to a new page
      */
     @RequestMapping("/new")
-    public String showNewBookPage(Model model, @ModelAttribute("category") Category category) {
+    public String showNewBookPage(Model model, @ModelAttribute("category") CategoryDto categoryDto) {
         Book book = new Book();
         model.addAttribute("book", book);
-        List<Category> list = new ArrayList<>();
+        List<CategoryDto> list = new ArrayList<>();
         model.addAttribute("allCategory", list);
         return "add-book";
     }
@@ -64,7 +63,7 @@ public class    BookController {
      * books/new => to create a new model object
      */
     @PostMapping(path = "/save")
-    public ResponseEntity<String> saveNewBook(@RequestBody Book book) {
+    public ResponseEntity<String> saveNewBook(@RequestBody BookDto book) {
 
         if (book.getBookname().isEmpty() || Objects.isNull(book.getBookname()))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -81,7 +80,7 @@ public class    BookController {
      */
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") int id, Model model) {
-        Optional<Book> book = bookService.loadBookById(id);
+        Optional<BookDto> book = bookService.loadBookById(id);
         if (book.isPresent()) {
             model.addAttribute("book", book.get());
         }
@@ -95,7 +94,7 @@ public class    BookController {
      * books/update/{id} => to update existing model object
      */
     @PostMapping(path = "/update/{id}")
-    public String updateBook(@PathVariable("id") int id, @RequestBody Book book) {
+    public String updateBook(@PathVariable("id") int id, @RequestBody BookDto book) {
 
         bookService.updateBook(id, book);
         return REDIRECT;
