@@ -53,6 +53,9 @@ public class BookServiceTest {
 
     @Test
     public void test_getBooksById_found() {
+        Optional<BookDto> bookNull = bookService.loadBookById(1);
+        assertTrue(bookNull.isEmpty());
+
         //Arrange
         Category category = new Category(1, "Entertainment");
         Book book1 = new Book(1, "first", "Fahad", 1000, category);
