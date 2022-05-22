@@ -16,7 +16,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -67,11 +67,10 @@ public class BookControllerTest {
 
         Mockito.when(bookService.loadAllBooks()).thenReturn(bookList);
         String url = "/books/allbooks";
-        MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+        MockHttpServletResponse response =  mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn().getResponse();;
 
-        String actualJsonResponse = mvcResult.getResponse().getContentAsString();
-        System.out.println(actualJsonResponse);
-
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test
@@ -87,11 +86,11 @@ public class BookControllerTest {
         BookDto bookDto = new BookDto(1, "first", "first", 10, category);
 
         Mockito.when(bookService.loadBookById(bookDto.getId())).thenReturn(Optional.of(bookDto));
-        MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+        // when
+        MockHttpServletResponse response = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn().getResponse();;
 
-        String actualJsonResponse = mvcResult.getResponse().getContentAsString();
-        System.out.println(actualJsonResponse);
-
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test
@@ -104,10 +103,14 @@ public class BookControllerTest {
         Mockito.when(bookService.saveBook(newBook)).thenReturn(newBook);
         String url = "/books/save";
 
-        mockMvc.perform(post(url)
+        // when
+        MockHttpServletResponse response = mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
-                .content(this.objectMapper.writeValueAsString(newBook)));
+                .content(this.objectMapper.writeValueAsString(newBook))).andReturn().getResponse();;
+
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         Mockito.verify(bookService, Mockito.times(0)).saveBook(newBook);
     }
 
@@ -120,10 +123,14 @@ public class BookControllerTest {
 
         Mockito.when(bookService.updateBook(newBook.getId(), newBook)).thenReturn(savedBook);
         String url = "/books/update/" + savedBook.getId();
-        mockMvc.perform(put(url)
+        // when
+        MockHttpServletResponse response =   mockMvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(newBook)));
+                .content(this.objectMapper.writeValueAsString(newBook))).andReturn().getResponse();;
+
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         Mockito.verify(bookService, Mockito.times(0)).saveBook(newBook);
     }
 
@@ -134,10 +141,14 @@ public class BookControllerTest {
         BookDto book = new BookDto(1, "", "Fahad", 1, category);
         Mockito.when(bookService.saveBook(book)).thenReturn(book);
         String url = "/books/save";
-        mockMvc.perform(put(url)
+        // when
+        MockHttpServletResponse response =      mockMvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(book)));
+                .content(objectMapper.writeValueAsString(book))).andReturn().getResponse();;
+
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 
     }
 
@@ -149,10 +160,13 @@ public class BookControllerTest {
         Mockito.when(bookService.saveBook(book)).thenReturn(book);
         String url = "/books/save";
 
-        mockMvc.perform(put(url)
+        MockHttpServletResponse response =   mockMvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(book)));
+                .content(this.objectMapper.writeValueAsString(book))).andReturn().getResponse();;
+
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 
     }
 
@@ -172,7 +186,7 @@ public class BookControllerTest {
                 .andReturn().getResponse();
 
         // then
-//        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test
@@ -184,10 +198,9 @@ public class BookControllerTest {
 
         doNothing().when(bookService).deleteBook(bookDto.getId());
         String url = "/books/delete/1";
-        MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+        MockHttpServletResponse response =mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn().getResponse();;
 
-        String actualJsonResponse = mvcResult.getResponse().getContentAsString();
-        System.out.println(actualJsonResponse);
-
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 }
