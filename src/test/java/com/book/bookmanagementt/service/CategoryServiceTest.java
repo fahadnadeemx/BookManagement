@@ -41,7 +41,7 @@ public class CategoryServiceTest {
 
     @Test
     public void test_getAllCategory() {
-        List<Category> list = new ArrayList<Category>();
+        List<Category> list = new ArrayList<>();
         Category category1 = new Category(1, "first");
         Category category2 = new Category(2, "second");
         list.add(category1);
@@ -55,7 +55,10 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void test_getCategoryById_found() {
+    public void test_getCategoryById() {
+        CategoryDto categoryDto = categoryService.loadCategoryById(1);
+        assertEquals(0,categoryDto.getId());
+        assertNull(categoryDto.getName());
         //Arrange
         Category category1 = new Category(1, "first");
         when(categoryrepository.findById(1)).thenReturn(Optional.of(category1));
@@ -96,7 +99,6 @@ public class CategoryServiceTest {
 
         Category category = categoryrepository.getById(1);
         assertNull(category);
-
     }
 }
 

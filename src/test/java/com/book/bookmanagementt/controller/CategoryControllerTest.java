@@ -4,6 +4,7 @@ package com.book.bookmanagementt.controller;
 import com.book.bookmanagementt.BookmanagementtApplication;
 import com.book.bookmanagementt.entity.Book;
 import com.book.bookmanagementt.entity.Category;
+import com.book.bookmanagementt.model.BookDto;
 import com.book.bookmanagementt.model.CategoryDto;
 import com.book.bookmanagementt.service.BookService;
 import com.book.bookmanagementt.service.CategoryService;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -104,22 +106,28 @@ public class CategoryControllerTest{
 
     @Test
     public void testUpdateCategory() throws Exception {
-
         CategoryDto newCategory = new CategoryDto(1, "first");
-        CategoryDto savedCategory = new CategoryDto(2, "second");
+        CategoryDto savedCategory = new CategoryDto(2, "");
 
         Mockito.when(categoryService.updateCategory(newCategory)).thenReturn(savedCategory);
         String url = "/categories/update/" + savedCategory.getId();
-//        mockMvc.perform(put(url).contentType("application/json")
-//                        .param("id", String.valueOf(savedCategory.getId()))
-//                        .param("name", savedCategory.getName())).
-//                andExpect(status().isOk());
-        mockMvc.perform(put(url)
+
+        MockHttpServletResponse response =     mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(savedCategory)));
+                .content(this.objectMapper.writeValueAsString(savedCategory))).andReturn().getResponse();
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 
-        Mockito.verify(categoryService, Mockito.times(0)).saveCategory(newCategory);
+        savedCategory.setName("updated");
+        Mockito.when(categoryService.updateCategory(newCategory)).thenReturn(savedCategory);
+
+        response =   mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(savedCategory))).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test
@@ -141,5 +149,16 @@ public class CategoryControllerTest{
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
+    @Test
+    public void testDeleteBookbyId() throws Exception {
 
+        Category category = new Category(1, "Entertainment");
+
+        doNothing().when(categoryService).deleteCategory(category.getId());
+        String url = "/categories/delete/1";
+        MockHttpServletResponse response = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn().getResponse();
+
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
 }
