@@ -28,7 +28,7 @@
             **/mapper/*.*,
             **/exceptions/*.*,
         </sonar.coverage.exclusions>
-        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     </properties>
     <dependencies>
         <dependency>
